@@ -1,15 +1,19 @@
-document.addEventListener("click", Login());
-let username = document.getElementById("fieldEmail").value;
-let password = document.getElementById("fieldContrasenia").value;
 
-const response = document.getElementById("respuesta");
 
-response.innerHTML="";
 
-function Login(){
+
+
+const btn = document.getElementById("btnLogin");
+
+btn.addEventListener('click', function(e){
+    console.log(e.target);
+    const username = document.getElementById("fieldEmail").value;
+    const password = document.getElementById("fieldContrasenia").value;
+
     if(username!="" && password!=""){
-        response.innerHTML+="Iniciando sesión";
+        location.href="../index.html";
+        document.getElementById("respuesta").innerHTML = "Iniciando sesión";
     }else{
-        response.innerHTML+="ERROR";
+        document.getElementById("respuesta").innerHTML = "ERROR";
     }
-}
+});
