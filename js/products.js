@@ -1,9 +1,8 @@
 let list = [];
-const datoId = localStorage.getItem("catID");
 
-const urlDinamico = PRODUCTS_URL + datoId + EXT_TYPE;
-console.log(urlDinamico);
 
+
+const urlDinamico = localStorage.getItem("urlFetch");
 const PRODUCTS_COLLECTION = urlDinamico;
 
 fetch(PRODUCTS_COLLECTION)

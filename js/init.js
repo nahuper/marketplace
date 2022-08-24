@@ -7,6 +7,13 @@ const CART_INFO_URL = "https://japceibal.github.io/emercado-api/user_cart/";
 const CART_BUY_URL = "https://japceibal.github.io/emercado-api/cart/buy.json";
 const EXT_TYPE = ".json";
 
+
+const datoId = localStorage.getItem("catID");
+const url = PRODUCTS_URL + datoId + EXT_TYPE;
+console.log(url);
+
+localStorage.setItem("urlFetch", url);
+
 let showSpinner = function(){
   document.getElementById("spinner-wrapper").style.display = "block";
 }
