@@ -15,27 +15,48 @@ let hideSpinner = function(){
   document.getElementById("spinner-wrapper").style.display = "none";
 }
 
+
+
 let getJSONData = function(url){
-    let result = {};
-    showSpinner();
-    return fetch(url)
-    .then(response => {
-      if (response.ok) {
-        return response.json();
-      }else{
-        throw Error(response.statusText);
-      }
-    })
-    .then(function(response) {
-          result.status = 'ok';
-          result.data = response;
-          hideSpinner();
-          return result;
-    })
-    .catch(function(error) {
-        result.status = 'error';
-        result.data = error;
+  let result = {};
+  showSpinner();
+  return fetch(url)
+  .then(response => {
+    if (response.ok) {
+      return response.json();
+    }else{
+      throw Error(response.statusText);
+    }
+  })
+  .then(function(response) {
+        result.status = 'ok';
+        result.data = response;
         hideSpinner();
         return result;
-    });
+  })
+  .catch(function(error) {
+      result.status = 'error';
+      result.data = error;
+      hideSpinner();
+      return result;
+  });
 }
+
+
+/*Aquí se toma el dato del nombre de usuario desde el local storage y se muestra en la página con innerHTML*/
+const btn = document.getElementById("btnLogin");
+
+
+  if(localStorage.getItem("username")){
+    let nombreUsuario = localStorage.getItem("username");
+    document.getElementById("usrName").innerHTML = `<a class="nav-item">${nombreUsuario}</a>`
+    console.log(nombreUsuario);
+      
+  }else{
+      console.log("No hay entradas en el local storage");
+  }
+
+
+
+
+

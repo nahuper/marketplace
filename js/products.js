@@ -1,26 +1,44 @@
 let list = [];
+const datoId = localStorage.getItem("catID");
 
+const urlDinamico = PRODUCTS_URL + datoId + EXT_TYPE;
+console.log(urlDinamico);
 
-const PRODUCTS_COLLECTION = "https://japceibal.github.io/emercado-api/cats_products/101.json"
+const PRODUCTS_COLLECTION = urlDinamico;
 
 fetch(PRODUCTS_COLLECTION)
 .then(response => {return response.json()})
 .then(data=>{
 
-    //console.log(data.products);
+
+    /*Se obtiene del JSON formateado (legible) el dato del nombre de la categoría
+    y se lo pasa al HTML para mostrarlo en la categoría seleccionada*/ 
+    let titulo="";
+
+    titulo +=`<h2>${data.catName}</h2>`
+
+
+    document.getElementById("tituloArticulo").innerHTML = titulo;
+
+    console.log(data.catName);
+    
+    
+/*Se recorre los productos dentro de una categoría dada y se muestran en 
+el HTML categoría por categoría*/
 
     for(let dato in data.products){
         list.push(data.products[dato]);
-
     }
+    
 
 let htmlContent="";
 
-
 for(let i=0; i<list.length; i++){
 
+    
     let items = list[i];
-    htmlContent += `
+    
+        htmlContent += `
 
     
             <div class="list-group-item list-group-item-action">
@@ -43,8 +61,10 @@ for(let i=0; i<list.length; i++){
                 </div>                
             `
             document.getElementById("products-list").innerHTML = htmlContent;
-
 }
+   
+   
+
 
 
             

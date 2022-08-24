@@ -213,3 +213,8 @@ a.custom-card:hover {
 #subtitulo{
   text-align: center;
 }
+
+.nav-item a{
+  color: white;
+  transition: ease-in-out color .5s;
+}
