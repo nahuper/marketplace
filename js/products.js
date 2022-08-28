@@ -87,6 +87,8 @@ btnFiltrar.addEventListener("click", ()=>{
 
 btnLimpiar.addEventListener("click", ()=>{
     mostrarItems();
+    max.value = "";
+    min.value = "";
 
 });
 
