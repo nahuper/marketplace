@@ -2,12 +2,95 @@ let list = [];
 const btnFiltrar = document.getElementById("rangeFilterCount");
 const btnLimpiar = document.getElementById("clearRangeFilter");
 const max = document.getElementById("rangeFilterCountMax");
-const min = document.getElementById("rangeFilterCountMin"); 
-
-
-
+const min = document.getElementById("rangeFilterCountMin");
+const asc = document.getElementById("sortAsc");
+const desc = document.getElementById("sortDesc"); 
 const urlDinamico = localStorage.getItem("urlFetch");
 const PRODUCTS_COLLECTION = urlDinamico;
+
+desc.addEventListener("click", ()=>{
+    
+    let htmlContent = "";
+    list.sort(function(a,b){
+        if(a.soldCount>b.soldCount){
+            return -1;
+        }
+        if(a.soldCount<navigator.soldCount){
+            return 1;
+        }
+        return 0;
+    });
+    for(let ordenadoDesc of list){
+        htmlContent += `
+
+    
+            <div class="list-group-item list-group-item-action">
+                <div class="row">
+                    <div class="col-3">
+                        <img src="` + ordenadoDesc.image + `" alt="product image" class="img-thumbnail">
+                    </div>
+                    <div class="col">
+                        <div class="d-flex w-100 justify-content-between">
+                            <div class="mb-1">
+                            <h2> `+ ordenadoDesc.name +`</h2>
+                            <p> `+ ordenadoDesc.description +`</p>
+                            <h4> U$D `+ ordenadoDesc.cost +`</h4>
+                            </div>
+                            <small class=text-muted> Cantidad venididos: `+ ordenadoDesc.soldCount +`</small>
+                            
+                        </div>
+                        </div>
+                    </div>
+                </div>                
+            `
+            document.getElementById("products-list").innerHTML = htmlContent;
+        console.log(ordenadoDesc);
+    }
+
+});
+
+
+asc.addEventListener("click", ()=>{
+    
+    let htmlContent="";
+    list.sort(function (a, b){
+        if(a.cost > b.cost){
+            return 1;
+        }
+        if(a.cost < b.cost){
+            return -1;
+        }
+        return 0;
+
+    });
+    for(let ordenadoAsc of list){
+        htmlContent += `
+
+    
+            <div class="list-group-item list-group-item-action">
+                <div class="row">
+                    <div class="col-3">
+                        <img src="` + ordenadoAsc.image + `" alt="product image" class="img-thumbnail">
+                    </div>
+                    <div class="col">
+                        <div class="d-flex w-100 justify-content-between">
+                            <div class="mb-1">
+                            <h2> `+ ordenadoAsc.name +`</h2>
+                            <p> `+ ordenadoAsc.description +`</p>
+                            <h4> U$D `+ ordenadoAsc.cost +`</h4>
+                            </div>
+                            <small class=text-muted> Cantidad venididos: `+ ordenadoAsc.soldCount +`</small>
+                            
+                        </div>
+                        </div>
+                    </div>
+                </div>                
+            `
+            document.getElementById("products-list").innerHTML = htmlContent;
+        console.log(ordenadoAsc);
+    }
+});
+
 
 mostrarItems();
 
@@ -131,8 +214,3 @@ for(let i=0; i<list.length; i++){
         
 };
 };
-
-
-
-
-
