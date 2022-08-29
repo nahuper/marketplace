@@ -21,7 +21,7 @@ btn.addEventListener('click', function(){
         
         document.getElementById("respuesta").innerHTML =  '<div class="border border-success p-2 mb-2">Loging in</div>';
         localStorage.setItem("username", username);
-        location.href="../marketplace/index.html";
+        location.href="../index.html";
         
     }else{
         
