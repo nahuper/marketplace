@@ -218,3 +218,8 @@ a.custom-card:hover {
   color: white;
   transition: ease-in-out color .5s;
 }
+
+.cuadroBusqueda{
+  margin-top: 8px;
+  margin-bottom: 5px;
+}
