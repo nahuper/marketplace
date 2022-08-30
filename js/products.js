@@ -5,6 +5,7 @@ const max = document.getElementById("rangeFilterCountMax");
 const min = document.getElementById("rangeFilterCountMin");
 const asc = document.getElementById("sortAsc");
 const desc = document.getElementById("sortDesc"); 
+const descByCount = document.getElementById("sortByCount");
 const urlDinamico = localStorage.getItem("urlFetch");
 const cuadroBusqueda = document.getElementById("busqueda");
 const PRODUCTS_COLLECTION = urlDinamico;
@@ -64,8 +65,10 @@ function quitarAcentos(string) {
 }
 
 
+
+
 /** Se listan los items de forma descendiante en base a la cantidad de ventas */
-desc.addEventListener("click", ()=>{
+descByCount.addEventListener("click", ()=>{
     
     
     list.sort(function(a,b){
@@ -97,6 +100,26 @@ asc.addEventListener("click", ()=>{
     });
     mostrarItems();
 });
+
+
+/**Se listan los items de forma descendente en base al costo */
+desc.addEventListener("click", ()=>{
+    
+    
+    list.sort(function (a, b){
+        if(a.cost > b.cost){
+            return -1;
+        }
+        if(a.cost < b.cost){
+            return 1;
+        }
+        return 0;
+
+    });
+    mostrarItems();
+});
+
+
 
 
 mostrarItems();
