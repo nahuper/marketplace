@@ -20,6 +20,7 @@ btn.addEventListener('click', function(){
     if(username!="" && password!=""){
         
         document.getElementById("respuesta").innerHTML =  '<div class="border border-success p-2 mb-2">Loging in</div>';
+        /**Aquí se guarda en el local storage el username del usuario */
         localStorage.setItem("username", username);
         location.href="../marketplace/index.html";
         

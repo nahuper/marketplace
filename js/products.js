@@ -10,6 +10,10 @@ const cuadroBusqueda = document.getElementById("busqueda");
 const PRODUCTS_COLLECTION = urlDinamico;
 
 
+/** Aqui se filtra el listado en base a lo que se escribe en el imput de búsqueda 
+ * se recorra la lista de productos y se evalua que el texto ingresado en el cuadro de búsqueda
+ * coincida con el título y la descripción del item.
+*/
 cuadroBusqueda.addEventListener("keyup", ()=>{
     //console.log(cuadroBusqueda.value);
     let texto = cuadroBusqueda.value.toLowerCase();
@@ -19,7 +23,7 @@ cuadroBusqueda.addEventListener("keyup", ()=>{
         let nom = producto.name.toLowerCase();
         let descr = producto.description.toLowerCase();
 
-        if(nom.indexOf(texto) !== -1 && descr.indexOf(texto) !== -1){
+        if(nom.indexOf(texto) !== -1 || descr.indexOf(texto) !== -1){
             htmlContent += `
 
     
@@ -52,13 +56,15 @@ cuadroBusqueda.addEventListener("keyup", ()=>{
 });
 
 
-//cuadroBusqueda.addEventListener("keyup", filtrar);
+/**Con este método se quitan los acentos del texto ingresado */
 
 function quitarAcentos(string) {
 
     return string.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
 }
 
+
+/** Se listan los items de forma descendiante en base a la cantidad de ventas */
 desc.addEventListener("click", ()=>{
     
     
@@ -75,7 +81,7 @@ desc.addEventListener("click", ()=>{
 
 });
 
-
+/** Se listan los items de forma ascendente en base al costo del producto */
 asc.addEventListener("click", ()=>{
     
     
