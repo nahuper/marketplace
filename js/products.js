@@ -164,8 +164,8 @@ btnFiltrar.addEventListener("click", ()=>{
     let dato=0;
 
     for(dato of list){
-        if(dato.cost >= min.value && dato.cost <= max.value){
-            console.log(dato.soldCount);
+        if(dato.cost >= min.value && dato.cost <= max.value || dato.cost >=max.value && dato.cost <= min.value){
+            console.log(dato.cost);
             htmlContent += `
 
     
