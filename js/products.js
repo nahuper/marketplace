@@ -119,9 +119,6 @@ desc.addEventListener("click", ()=>{
     mostrarItems();
 });
 
-
-
-
 mostrarItems();
 
 fetch(PRODUCTS_COLLECTION)
