@@ -1,5 +1,9 @@
 document.addEventListener("DOMContentLoaded", function(){
 
+
+    if(localStorage.getItem("username")===null){
+        location.href="../marketplace/login.html";
+    }
     document.getElementById("autos").addEventListener("click", function() {
         localStorage.setItem("catID", 101);
         window.location = "products.html"
