@@ -17,7 +17,16 @@ fetch(urlFormateado)
         console.log(data)
         
         
-        
+        /*Se obtiene del JSON formateado (legible) el dato del nombre del producto
+        y se lo pasa al HTML para mostrarlo la página de detalles del producto seleccionado*/ 
+        let titulo="";
+
+        titulo +=`<h2>${data.name}</h2>`
+
+
+        document.getElementById("tipoDeProducto").innerHTML = titulo;
+
+        console.log(data.catName);
         
 
         camposHTML += `<div class="col">
