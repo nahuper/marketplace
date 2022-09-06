@@ -11,6 +11,13 @@ const cuadroBusqueda = document.getElementById("busqueda");
 const PRODUCTS_COLLECTION = urlDinamico;
 
 
+function setProdId(id){
+    localStorage.setItem("prodID", id);
+    window.location = "product-info.html";
+}
+
+
+
 /** Aqui se filtra el listado en base a lo que se escribe en el imput de búsqueda 
  * se recorra la lista de productos y se evalua que el texto ingresado en el cuadro de búsqueda
  * coincida con el título y la descripción del item.
@@ -28,7 +35,7 @@ cuadroBusqueda.addEventListener("keyup", ()=>{
             htmlContent += `
 
     
-            <div class="list-group-item list-group-item-action">
+            <div onclick="setProdId(${producto.id})" class="list-group-item list-group-item-action cursor-active">
                 <div class="row">
                     <div class="col-3">
                         <img src="` + producto.image + `" alt="product image" class="img-thumbnail">
@@ -45,7 +52,7 @@ cuadroBusqueda.addEventListener("keyup", ()=>{
                         </div>
                         </div>
                     </div>
-                </div>                
+                </div>                 
             `
             
         }
@@ -165,8 +172,7 @@ btnFiltrar.addEventListener("click", ()=>{
             console.log(dato.cost);
             htmlContent += `
 
-    
-            <div class="list-group-item list-group-item-action">
+            <div onclick="setProdId(${dato.id})" class="list-group-item list-group-item-action cursor-active">
                 <div class="row">
                     <div class="col-3">
                         <img src="` + dato.image + `" alt="product image" class="img-thumbnail">
@@ -216,24 +222,24 @@ for(let i=0; i<list.length; i++){
     htmlContent += `
 
     
-            <div class="list-group-item list-group-item-action">
-                <div class="row">
-                    <div class="col-3">
-                        <img src="` + items.image + `" alt="product image" class="img-thumbnail">
-                    </div>
-                    <div class="col">
-                        <div class="d-flex w-100 justify-content-between">
-                            <div class="mb-1">
-                            <h2> `+ items.name +`</h2>
-                            <p> `+ items.description +`</p>
-                            <h4> U$D `+ items.cost +`</h4>
-                            </div>
-                            <small class=text-muted> Cantidad venididos: `+ items.soldCount +`</small>
-                            
-                        </div>
-                        </div>
-                    </div>
-                </div>                
+    <div onclick="setProdId(${items.id})" class="list-group-item list-group-item-action cursor-active">
+    <div class="row">
+        <div class="col-3">
+            <img src="` + items.image + `" alt="product image" class="img-thumbnail">
+        </div>
+        <div class="col">
+            <div class="d-flex w-100 justify-content-between">
+                <div class="mb-1">
+                <h2> `+ items.name +`</h2>
+                <p> `+ items.description +`</p>
+                <h4> U$D `+ items.cost +`</h4>
+                </div>
+                <small class=text-muted> Cantidad venididos: `+ items.soldCount +`</small>
+                
+            </div>
+            </div>
+        </div>
+    </div>                
             `
             document.getElementById("products-list").innerHTML = htmlContent;
     
