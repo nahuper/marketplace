@@ -51,8 +51,27 @@ fetch(urlFormateado)
 
                 imagenes += `
 
+                <div class="row">
+                <div class="column" id="img">
+                    <img class="img-thumbnail img-fluid" src="${data.images[dat]}" class="img-thumbnail">   
+                </div>
+                </div>
                 
-                <img src="${data.images[dat]}" class="img-thumbnail">
+                <style>
+                    img{
+                        width: 30%;
+                    }
+                    .row{
+                        display: flex;
+                        padding: 5px;
+                        flex-wrap: wrap;
+                    }
+                    #id{
+                        flex: 25%;
+                        padding: 5px;
+                    }
+                </style>
+                
                 `
                 console.log(data.images[dat])
             }
