@@ -5,14 +5,32 @@ const EXTENSION_FORMAT = ".json";
 const idProd = localStorage.getItem("prodID");
 const urlFormateado = URL_PRODUCTO + idProd + EXTENSION_FORMAT;
 const urlComments = PRODUCTS_COMMENTS + idProd + EXTENSION_FORMAT;
-let listaImagenes = [];
-
+const comments = document.getElementsByClassName("comments-container");
+const stars = document.getElementById("stars");
 
 
 fetch(urlComments)
     .then((result)=>{return result.json()})
     .then((dat) => {
-        console.log(dat);
+
+        let cargaComentarios = "";
+        for(dato in dat){
+            let item = dat[dato];
+
+            cargaComentarios += `
+            
+            
+            <hr style="color:black; background-color:black; width:75%;">
+            <strong>${item.user}</strong>
+            ${item.dateTime}
+            
+            <p>${item.description}</p>
+            <hr style="color:black; background-color:black; width:75%;">
+            `
+
+            document.getElementById("comments-container").innerHTML = cargaComentarios;
+            
+        }
     })
     .catch(error=>{
         console.log(error);
