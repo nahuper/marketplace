@@ -1,11 +1,25 @@
 
 const URL_PRODUCTO = "https://japceibal.github.io/emercado-api/products/";
+const PRODUCTS_COMMENTS = "https://japceibal.github.io/emercado-api/products_comments/";
 const EXTENSION_FORMAT = ".json";
 const idProd = localStorage.getItem("prodID");
 const urlFormateado = URL_PRODUCTO + idProd + EXTENSION_FORMAT;
+const urlComments = PRODUCTS_COMMENTS + idProd + EXTENSION_FORMAT;
 let listaImagenes = [];
 
 
+
+fetch(urlComments)
+    .then((result)=>{return result.json()})
+    .then((dat) => {
+        console.log(dat);
+    })
+    .catch(error=>{
+        console.log(error);
+    });
+
+
+    
 
 
 fetch(urlFormateado)
