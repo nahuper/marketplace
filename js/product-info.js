@@ -27,12 +27,11 @@ fetch(urlComments)
             `
 
             for(let i=0; i<item.score; i++){
-
+                
                 cargaComentarios += `
                         <span class="fa fa-star checked"></span>
                 
                 `
-                
             }
 
             document.getElementById("comments-container").innerHTML = cargaComentarios;
