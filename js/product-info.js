@@ -13,35 +13,40 @@ let cargaComentarios="";
 
 btnPublish.addEventListener("click", ()=>{
     const select = document.getElementById("scores");
-    const valueAreaText = document.getElementById("textValue");
+    const valueAreaText = document.getElementById("textValue").value;
     const valueMenuScore = select.options[select.selectedIndex].value;
 
     let today = new Date();
     let nowDate = today.toLocaleDateString();
     let nowTime = today.toLocaleTimeString();
     
-    const valueAreaTexts = valueAreaText.value;
     const actualDate = nowDate;
     const actualHour = nowTime;
-    const valueMenuScores = valueMenuScore;
 
     const itemList = JSON.parse(localStorage.getItem("listCommentsObj"));
 
-    if(valueAreaTexts !== null && actualDate !== null && actualHour !== null
-        && valueMenuScores !== null){
-            publicationList.push(valueAreaTexts, actualDate, actualHour, 
-                valueMenuScores);
-            valueAreaText.value = "";
+    
+
+    if(valueAreaText !== null){
+           
+            const comment = [{
+                text: valueAreaText,
+                date: actualDate,
+                hour: actualHour,
+                score: valueMenuScore
+            }]
+            publicationList = comment;
             localStorage.setItem("listCommentsObj", JSON.stringify(publicationList));
-            console.log(publicationList);
-    }else if(valueAreaTexts === null){
+            valueAreaText.value = "";
+            console.log(JSON.parse(localStorage.getItem("listCommentsObj")));
+    }else if(valueAreaText === null){
         let listOfItems=[itemList];
-        localStorage.setItem("listCommentsObj", JSON.stringify(listOfItems));
+        localStorage.setItem("listCommentsObj", JSON.stringify(publicationList));
         valueAreaText.value = "";
     }
   
     
-    console.log(publicationList[0]);
+    //console.log(publicationList[0]);
 
     /*console.log(nowDate);
     console.log(nowTime);
