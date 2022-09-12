@@ -7,16 +7,58 @@ const urlFormateado = URL_PRODUCTO + idProd + EXTENSION_FORMAT;
 const urlComments = PRODUCTS_COMMENTS + idProd + EXTENSION_FORMAT;
 const comments = document.getElementsByClassName("comments-container");
 const stars = document.getElementById("stars");
+const btnPublish = document.getElementById("btnPublish");
+let publicationList = [];
+let cargaComentarios="";
 
+btnPublish.addEventListener("click", ()=>{
+    const select = document.getElementById("scores");
+    const valueAreaText = document.getElementById("textValue");
+    const valueMenuScore = select.options[select.selectedIndex].value;
+
+    let today = new Date();
+    let nowDate = today.toLocaleDateString();
+    let nowTime = today.toLocaleTimeString();
+    
+    const valueAreaTexts = valueAreaText.value;
+    const actualDate = nowDate;
+    const actualHour = nowTime;
+    const valueMenuScores = valueMenuScore;
+
+    const itemList = JSON.parse(localStorage.getItem("listCommentsObj"));
+
+    if(valueAreaTexts !== null && actualDate !== null && actualHour !== null
+        && valueMenuScores !== null){
+            publicationList.push(valueAreaTexts, actualDate, actualHour, 
+                valueMenuScores);
+            valueAreaText.value = "";
+            localStorage.setItem("listCommentsObj", JSON.stringify(publicationList));
+            console.log(publicationList);
+    }else if(valueAreaTexts === null){
+        let listOfItems=[itemList];
+        localStorage.setItem("listCommentsObj", JSON.stringify(listOfItems));
+        valueAreaText.value = "";
+    }
+  
+    
+    console.log(publicationList[0]);
+
+    /*console.log(nowDate);
+    console.log(nowTime);
+    console.log(valueAreaText);
+
+    console.log(valueMenuScore);*/
+
+
+});
 
 fetch(urlComments)
     .then((result)=>{return result.json()})
     .then((dat) => {
         
-        let cargaComentarios = "";
+        cargaComentarios = "";
         for(dato in dat){
             let item = dat[dato];
-
             //console.log(item.score);
             cargaComentarios += `
             <hr style="color:black; background-color:black; width:75%;">
@@ -27,11 +69,12 @@ fetch(urlComments)
             `
 
             for(let i=0; i<item.score; i++){
-                
+
                 cargaComentarios += `
                         <span class="fa fa-star checked"></span>
                 
                 `
+                
             }
 
             document.getElementById("comments-container").innerHTML = cargaComentarios;

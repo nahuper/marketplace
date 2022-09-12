@@ -227,3 +227,14 @@ a.custom-card:hover {
 .tituloComentarios{
   margin-top: 6rem;
 }
+
+#addComments-banner{
+  margin-top: 3rem;
+}
+
+
+
+#btnPublish{
+  margin-top: 0.2rem;
+  margin-left: 20rem;
+}
