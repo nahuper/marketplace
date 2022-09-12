@@ -12,33 +12,64 @@ const stars = document.getElementById("stars");
 fetch(urlComments)
     .then((result)=>{return result.json()})
     .then((dat) => {
-
+        
         let cargaComentarios = "";
         for(dato in dat){
             let item = dat[dato];
 
+            //console.log(item.score);
             cargaComentarios += `
-            
-            
             <hr style="color:black; background-color:black; width:75%;">
             <strong>${item.user}</strong>
             ${item.dateTime}
             
             <p>${item.description}</p>
-            <hr style="color:black; background-color:black; width:75%;">
             `
 
+            for(let i=0; i<item.score; i++){
+
+                cargaComentarios += `
+                        <span class="fa fa-star checked"></span>
+                
+                `
+                
+            }
+
             document.getElementById("comments-container").innerHTML = cargaComentarios;
-            
         }
     })
     .catch(error=>{
         console.log(error);
     });
 
+    //showStars();
 
-    
-
+    /*function showStars(item){
+        const listComments = "https://japceibal.github.io/emercado-api/products_comments/";
+        const jsonFormat = ".json";
+        const id = localStorage.getItem("prodID");
+        const urlFormed = listComments + id + jsonFormat;
+        counter = item.id[0]; //captura el primer caracter
+        let name = item.id.substring(1); // captura todo menos el primer caracter
+        console.log(item);
+        
+        fetch(urlFormed)
+        .then((result)=>{return result.json()})
+        .then((data)=>{
+          for(let score in data){
+            let item = data[score];
+            //console.log(item.score);
+            for(let i=0; i<5; i++){
+                if(i<counter){
+                    document.getElementById((i+1)+name).style.color="orange";
+                }
+                
+            }
+          }
+          
+          
+        })
+    };*/
 
 fetch(urlFormateado)
     .then((res) => {return res.json()})
