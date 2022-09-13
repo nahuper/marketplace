@@ -17,35 +17,36 @@ if(localStorage.getItem("username")===null){
 }else{
     btnPublish.addEventListener("click", ()=>{
         const select = document.getElementById("scores");
-        const valueAreaText = document.getElementById("textValue").value;
+        const valueAreaText = document.getElementById("textValue");
         const valueMenuScore = select.options[select.selectedIndex].value;
     
         let today = new Date();
         let nowDate = today.toLocaleDateString();
         let nowTime = today.toLocaleTimeString();
-        
+        const valueText = valueAreaText.value;
         const actualDate = nowDate;
         const actualHour = nowTime;
     
-        const itemList = JSON.parse(localStorage.getItem("listCommentsObj"));
     
         
     
-        if(valueAreaText !== null){
+        if(valueText !== null){
                
                 const comment = [{
-                    text: valueAreaText,
+                    user: localStorage.getItem("username"),
+                    text: valueText,
                     date: actualDate,
                     hour: actualHour,
                     score: valueMenuScore
                 }]
                 publicationList = comment;
-                localStorage.setItem("listCommentsObj", JSON.stringify(publicationList));
+                
                 valueAreaText.value = "";
-                console.log(JSON.parse(localStorage.getItem("listCommentsObj")));
-        }else if(valueAreaText === null){
+                
+                showComment();
+        }else if(valueText === null){
             let listOfItems=[itemList];
-            localStorage.setItem("listCommentsObj", JSON.stringify(publicationList));
+            
             valueAreaText.value = "";
         }
       
@@ -60,6 +61,36 @@ if(localStorage.getItem("username")===null){
     
     
     });
+
+    showComment();
+
+    function showComment(){
+        for(let item of publicationList){
+            const{user, text, date, hour, score} = item;
+            console.log(user);
+            console.log(text);
+            console.log(date);
+            console.log(hour);
+            console.log(score);
+
+            cargaComentarios += `
+                <hr style="color:black; background-color:black; width:75%;">
+                <strong>${user}</strong>
+                ${date}
+                ${hour}
+                
+                <p>${text}</p>
+                `
+
+                for(let i=0; i<score; i++){
+                    cargaComentarios += `
+                            <span class="fa fa-star checked"></span>
+                    
+                    `
+                }
+                document.getElementById("comments-container").innerHTML = cargaComentarios;
+        }
+    }
     
     fetch(urlComments)
         .then((result)=>{return result.json()})

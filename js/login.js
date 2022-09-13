@@ -1,12 +1,5 @@
 
-
-
-
-
 const btn = document.getElementById("btnLogin");
-
-
-
 
 btn.addEventListener('click', function(){
 
@@ -32,10 +25,3 @@ btn.addEventListener('click', function(){
 
     
 });
-
-
-
-
-
-   
-
