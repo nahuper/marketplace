@@ -15,6 +15,9 @@ let cargaComentarios="";
 if(localStorage.getItem("username")===null){
     location.href="../marketplace/login.html";
 }else{
+
+  
+
     btnPublish.addEventListener("click", ()=>{
         const select = document.getElementById("scores");
         const valueAreaText = document.getElementById("textValue");
@@ -28,130 +31,83 @@ if(localStorage.getItem("username")===null){
         const actualHour = nowTime;
     
     
+        console.log(nowDate);
         
-    
-        if(valueText !== null){
+        if(valueText !== ""){
                
-                const comment = [{
+                let comment = {
                     user: localStorage.getItem("username"),
-                    text: valueText,
-                    date: actualDate,
-                    hour: actualHour,
+                    description: valueText,
+                    dateTime: `${actualDate} ${actualHour}`,
                     score: valueMenuScore
-                }]
-                publicationList = comment;
+                }
                 
+                
+                
+                publicationList.push(comment);
+                localStorage.setItem(`listComments${idProd}`, JSON.stringify(publicationList));
+                //let listComments = JSON.parse(localStorage.getItem(`listComments${idProd}`));
+                
+                
+                //console.log(JSON.parse(localStorage.getItem("listComments")));
                 valueAreaText.value = "";
                 
                 showComment();
-        }else if(valueText === null){
-            let listOfItems=[itemList];
-            
+        }else if(valueText === ""){
             valueAreaText.value = "";
+            alert("No hay ningún texto en la caja de comentarios")
         }
-      
-        
-        //console.log(publicationList[0]);
-    
-        /*console.log(nowDate);
-        console.log(nowTime);
-        console.log(valueAreaText);
-    
-        console.log(valueMenuScore);*/
-    
+
     
     });
 
-    showComment();
-
     function showComment(){
-        for(let item of publicationList){
-            const{user, text, date, hour, score} = item;
-            console.log(user);
-            console.log(text);
-            console.log(date);
-            console.log(hour);
-            console.log(score);
 
+        
+        cargaComentarios = "";
+        for(dato in publicationList){
+            let item = publicationList[dato];
+            
             cargaComentarios += `
-                <hr style="color:black; background-color:black; width:75%;">
-                <strong>${user}</strong>
-                ${date}
-                ${hour}
-                
-                <p>${text}</p>
-                `
+            <hr style="color:black; background-color:black; width:75%;">
+            <strong>${item.user}</strong>
+            ${item.dateTime}
+            
+            <p>${item.description}</p>
+            `
 
-                for(let i=0; i<score; i++){
-                    cargaComentarios += `
-                            <span class="fa fa-star checked"></span>
-                    
-                    `
-                }
-                document.getElementById("comments-container").innerHTML = cargaComentarios;
+            for(let i=0; i<item.score; i++){
+
+                cargaComentarios += `
+                        <span class="fa fa-star checked"></span>
+                
+                `
+                
+            }
+
+            document.getElementById("comments-container").innerHTML = cargaComentarios;
         }
     }
-    
-    fetch(urlComments)
+
+    document.addEventListener("DOMContentLoaded", ()=>{
+
+        const listItems = JSON.parse(localStorage.getItem(`listComments${idProd}`));
+        fetch(urlComments)
         .then((result)=>{return result.json()})
         .then((dat) => {
-            
-            cargaComentarios = "";
-            for(dato in dat){
-                let item = dat[dato];
-                //console.log(item.score);
-                cargaComentarios += `
-                <hr style="color:black; background-color:black; width:75%;">
-                <strong>${item.user}</strong>
-                ${item.dateTime}
-                
-                <p>${item.description}</p>
-                `
-    
-                for(let i=0; i<item.score; i++){
-    
-                    cargaComentarios += `
-                            <span class="fa fa-star checked"></span>
-                    
-                    `
-                    
-                }
-    
-                document.getElementById("comments-container").innerHTML = cargaComentarios;
+            if(listItems===null){
+                publicationList = dat;
+                showComment();
+            }else{
+                publicationList=listItems;
+                showComment();
             }
+            
         })
         .catch(error=>{
             console.log(error);
         });
     
-        //showStars();
-    
-        /*function showStars(item){
-            const listComments = "https://japceibal.github.io/emercado-api/products_comments/";
-            const jsonFormat = ".json";
-            const id = localStorage.getItem("prodID");
-            const urlFormed = listComments + id + jsonFormat;
-            counter = item.id[0]; //captura el primer caracter
-            let name = item.id.substring(1); // captura todo menos el primer caracter
-            console.log(item);
-            
-            fetch(urlFormed)
-            .then((result)=>{return result.json()})
-            .then((data)=>{
-              for(let score in data){
-                let item = data[score];
-                //console.log(item.score);
-                for(let i=0; i<5; i++){
-                    if(i<counter){
-                        document.getElementById((i+1)+name).style.color="orange";
-                    }
-                    
-                }
-              }
-              
-              
-            })
-        };*/
     
     fetch(urlFormateado)
         .then((res) => {return res.json()})
@@ -159,7 +115,7 @@ if(localStorage.getItem("username")===null){
     
             let camposHTML = "";
             let imagenes = "";
-            console.log(data)
+            
             
             
             /*Se obtiene del JSON formateado (legible) el dato del nombre del producto
@@ -171,7 +127,7 @@ if(localStorage.getItem("username")===null){
     
             document.getElementById("tipoDeProducto").innerHTML = titulo;
     
-            console.log(data.catName);
+           
             
     
             camposHTML += `<div class="col">
@@ -218,7 +174,7 @@ if(localStorage.getItem("username")===null){
                     </style>
                     
                     `
-                    console.log(data.images[dat])
+                    
                 }
     
             document.getElementById("dataProduct").innerHTML = camposHTML;
@@ -227,6 +183,9 @@ if(localStorage.getItem("username")===null){
         .catch(error=>{
             console.log(error)
         });
+    })
+    
+    
 }
 
 

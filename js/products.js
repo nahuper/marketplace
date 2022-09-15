@@ -1,4 +1,6 @@
 let list = [];
+const PRODUCTS = "https://japceibal.github.io/emercado-api/cats_products/";
+const EXTENSION = ".json";
 const btnFiltrar = document.getElementById("rangeFilterCount");
 const btnLimpiar = document.getElementById("clearRangeFilter");
 const max = document.getElementById("rangeFilterCountMax");
@@ -6,9 +8,10 @@ const min = document.getElementById("rangeFilterCountMin");
 const asc = document.getElementById("sortAsc");
 const desc = document.getElementById("sortDesc"); 
 const descByCount = document.getElementById("sortByCount");
+const catId = localStorage.getItem("catID");
 const urlDinamico = localStorage.getItem("urlFetch");
 const cuadroBusqueda = document.getElementById("busqueda");
-const PRODUCTS_COLLECTION = urlDinamico;
+const PRODUCTS_COLLECTION = PRODUCTS + catId + EXTENSION;
 
 
 if(localStorage.getItem("username")===null){
@@ -155,7 +158,6 @@ if(localStorage.getItem("username")===null){
         for(let dato in data.products){
             list.push(data.products[dato]);
         }
-        
         mostrarItems();
     
     })
@@ -163,6 +165,7 @@ if(localStorage.getItem("username")===null){
         console.log(error)
     });
     
+    console.log(list);
     
     btnFiltrar.addEventListener("click", ()=>{
     

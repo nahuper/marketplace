@@ -10,7 +10,7 @@ let PERCENTAGE_SYMBOL = '%';
 let MSG = "FUNCIONALIDAD NO IMPLEMENTADA";
 
 if(localStorage.getItem("username")===null){
-    location.href="../marketplace/login.html";
+    location.href="../login.html";
 }else{
     function updateTotalCosts(){
         let unitProductCostHTML = document.getElementById("productCostText");

@@ -8,15 +8,6 @@ const CART_BUY_URL = "https://japceibal.github.io/emercado-api/cart/buy.json";
 const EXT_TYPE = ".json";
 
 
-/**Aquí se obtiene el id de categoría y se guarda en el local storage la url de los items */
-const datoId = localStorage.getItem("catID");
-
-/**Aquí se construye la URL para listar los productos y se guarda en el local storage*/
-const url = PRODUCTS_URL + datoId + EXT_TYPE;
-console.log(url);
-localStorage.setItem("urlFetch", url);
-
-
 let showSpinner = function(){
   document.getElementById("spinner-wrapper").style.display = "block";
 }
@@ -60,7 +51,6 @@ const btn = document.getElementById("btnLogin");
   if(localStorage.getItem("username")){
     let nombreUsuario = localStorage.getItem("username");
     document.getElementById("usrName").innerHTML = `<a class="nav-item">${nombreUsuario}</a>`
-    console.log(nombreUsuario);
       
   }else{
       console.log("No hay entradas en el local storage");
