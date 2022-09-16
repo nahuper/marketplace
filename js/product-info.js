@@ -16,6 +16,12 @@ if(localStorage.getItem("username")===null){
     location.href="../marketplace/login.html";
 }else{
 
+
+    /**Aquí se recibe del localstorage la lista de comentarios con su respectivo id de producto
+     * y evalúa que la lista no esté vacía, si no lo está, entonces se insertan los comentarios correspondientes
+     * al producto en el arreglo y los muestra y si lo está rellena el array publication list y 
+     * muestra los comentarios precargados. 
+     */
     document.addEventListener("DOMContentLoaded", ()=>{
 
         const listItems = JSON.parse(localStorage.getItem(`listComments${idProd}`));
@@ -36,8 +42,7 @@ if(localStorage.getItem("username")===null){
         });
     
         function mostrarTituloDeProducto(name){
-            /*Se obtiene del JSON formateado (legible) el dato del nombre del producto
-            y se lo pasa al HTML para mostrarlo la página de detalles del producto seleccionado*/ 
+            
             let titulo="";
     
             titulo +=`<h2>${name}</h2>`
@@ -45,6 +50,9 @@ if(localStorage.getItem("username")===null){
     
             document.getElementById("tipoDeProducto").innerHTML = titulo;
         }
+
+
+        /**Aquí se recibe por parámetro todos los atributos del item y se los muestra en pantalla */
 
         function showData(cost, description, category, soldCount){
             let camposHTML = "";
@@ -69,6 +77,9 @@ if(localStorage.getItem("username")===null){
             
             document.getElementById("dataProduct").innerHTML = camposHTML;
         }
+        
+
+    /** Aquí se obtiene la url de los productos */    
 
     fetch(urlFormateado)
         .then((res) => {return res.json()})
@@ -80,6 +91,7 @@ if(localStorage.getItem("username")===null){
             mostrarTituloDeProducto(data.name);
             showData(data.cost, data.description, data.category, data.soldCount);
             
+            /**Aquí se muestran las imágenes del artículo seleccionado */
     
                 for(let dat in data.images){
     
@@ -107,16 +119,13 @@ if(localStorage.getItem("username")===null){
                     </style>
                     
                     `
-                    
                 }
-    
-            
             document.getElementById("imgs").innerHTML = imagenes;
         })
         .catch(error=>{
             console.log(error)
         });
-    })
+    });
   
 
     btnPublish.addEventListener("click", ()=>{
@@ -132,7 +141,9 @@ if(localStorage.getItem("username")===null){
         const actualHour = nowTime;
     
     
-        console.log(nowDate);
+        /** Aquí se hace el formato para mostrar los comentarios agregados por el usuario
+         * y ya cargados
+        */
         
         if(valueText !== ""){
                
@@ -143,14 +154,8 @@ if(localStorage.getItem("username")===null){
                     score: valueMenuScore
                 }
                 
-                
-                
                 publicationList.push(comment);
                 localStorage.setItem(`listComments${idProd}`, JSON.stringify(publicationList));
-                //let listComments = JSON.parse(localStorage.getItem(`listComments${idProd}`));
-                
-                
-                //console.log(JSON.parse(localStorage.getItem("listComments")));
                 valueAreaText.value = "";
                 
                 showComment();
@@ -162,6 +167,7 @@ if(localStorage.getItem("username")===null){
     
     });
 
+    
     function showComment(){
 
         
@@ -187,16 +193,10 @@ if(localStorage.getItem("username")===null){
             }
 
             document.getElementById("comments-container").innerHTML = cargaComentarios;
-        }
-    }
+        };
+    };
 
     
     
     
-}
-
-
-
-
-
-
+};

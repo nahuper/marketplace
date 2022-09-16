@@ -17,12 +17,59 @@ const PRODUCTS_COLLECTION = PRODUCTS + catId + EXTENSION;
 if(localStorage.getItem("username")===null){
     location.href="../marketplace/login.html";
 }else{
+
+    /**Aquí este procedimiento recibe un id de producto y lo guarda en el localstorage y luego redirige a la página product-info */
     function setProdId(id){
         localStorage.setItem("prodID", id);
         window.location = "product-info.html";
     }
     
+
+    document.addEventListener("DOMContentLoaded", ()=>{
+        fetch(PRODUCTS_COLLECTION)
     
+        .then(response => {return response.json()})
+        .then(data=>{
+ 
+        mostrarNombreCategoria(data.catName)
+    
+        /*Se recorre los productos dentro de una categoría dada y se muestran en 
+    el HTML categoría por categoría*/
+    
+        for(let dato in data.products){
+            list.push(data.products[dato]);
+        }
+        recorrerArreglo();
+    
+    })
+    .catch(error=>{
+        console.log(error)
+    });
+    });
+
+    
+    function mostrarNombreCategoria(catName){
+        /*Se obtiene del JSON formateado (legible) el dato del nombre de la categoría
+        y se lo pasa al HTML para mostrarlo en la categoría seleccionada*/ 
+        let titulo="";
+    
+        titulo +=`<h2>${catName}</h2>`
+    
+    
+        document.getElementById("tituloArticulo").innerHTML = titulo;
+    }
+
+    /**Aquí se recorre el arreglo list y se inserta en el HTML todos los elementos corresponientes de forma dinámica */
+    function recorrerArreglo(){
+        banner.innerHTML="";
+        for(let item in list){
+            let dat = list[item];
+
+            banner.innerHTML += mostrarFiltrado(dat.id, dat.image, dat.name, dat.description, 
+                dat.cost, dat.soldCount);
+        }
+    }
+
     
     /** Aqui se filtra el listado en base a lo que se escribe en el imput de búsqueda 
      * se recorra la lista de productos y se evalua que el texto ingresado en el cuadro de búsqueda
@@ -109,47 +156,9 @@ if(localStorage.getItem("username")===null){
         recorrerArreglo();
     });
 
-    function mostrarNombreCategoria(catName){
-        /*Se obtiene del JSON formateado (legible) el dato del nombre de la categoría
-        y se lo pasa al HTML para mostrarlo en la categoría seleccionada*/ 
-        let titulo="";
-    
-        titulo +=`<h2>${catName}</h2>`
-    
-    
-        document.getElementById("tituloArticulo").innerHTML = titulo;
-    }
-    
-    fetch(PRODUCTS_COLLECTION)
-    
-    .then(response => {return response.json()})
-    .then(data=>{
- 
-        mostrarNombreCategoria(data.catName)
-    /*Se recorre los productos dentro de una categoría dada y se muestran en 
-    el HTML categoría por categoría*/
-    
-        for(let dato in data.products){
-            list.push(data.products[dato]);
-        }
-        recorrerArreglo();
-    
-    })
-    .catch(error=>{
-        console.log(error)
-    });
-    
-
-    function recorrerArreglo(){
-        banner.innerHTML="";
-        for(let item in list){
-            let dat = list[item];
-
-            banner.innerHTML += mostrarFiltrado(dat.id, dat.image, dat.name, dat.description, 
-                dat.cost, dat.soldCount);
-        }
-    }
-
+    /**Aqui se filtra dado un rango de precios y se pasa por parámetro cada item a la funcion de mostrar los items
+     * se le pasan los parámetros para que se vea reflejado el filtrado de forma correcta.
+     */
     btnFiltrar.addEventListener("click", ()=>{
     
         let dato=0;
@@ -170,19 +179,17 @@ if(localStorage.getItem("username")===null){
         return variables;
     });
 
-    
+    /**
+     * Aquí se limpia la pantalla de los elementos filtrados para mostrar todos los 
+     * elementos, para eso se invoca a la función mostrarFiltrado.
+     */
     
     btnLimpiar.addEventListener("click", ()=>{
         
         max.value = "";
         min.value = "";
         banner.innerHTML="";
-        for(let item in list){
-                    let dat = list[item];
-        
-                    banner.innerHTML += mostrarFiltrado(dat.id, dat.image, dat.name, dat.description, 
-                        dat.cost, dat.soldCount);
-                }
+        recorrerArreglo();
         
     
     });
@@ -191,6 +198,11 @@ if(localStorage.getItem("username")===null){
 
     function mostrarFiltrado(id, image, name, description, cost, soldCount){
         
+
+        /**
+         * Desde aquí se obtiene el id de producto para pasárselo por localstorage al product-info
+         * y se le da formato visual a las plantillas que se muestran en pantalla
+         */
         let htmlContent = "";
         return `
     
