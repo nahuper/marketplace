@@ -2,6 +2,7 @@ let list = [];
 const PRODUCTS = "https://japceibal.github.io/emercado-api/cats_products/";
 const EXTENSION = ".json";
 const btnFiltrar = document.getElementById("rangeFilterCount");
+const banner = document.getElementById("products-list");
 const btnLimpiar = document.getElementById("clearRangeFilter");
 const max = document.getElementById("rangeFilterCountMax");
 const min = document.getElementById("rangeFilterCountMin");
@@ -9,7 +10,6 @@ const asc = document.getElementById("sortAsc");
 const desc = document.getElementById("sortDesc"); 
 const descByCount = document.getElementById("sortByCount");
 const catId = localStorage.getItem("catID");
-const urlDinamico = localStorage.getItem("urlFetch");
 const cuadroBusqueda = document.getElementById("busqueda");
 const PRODUCTS_COLLECTION = PRODUCTS + catId + EXTENSION;
 
@@ -29,24 +29,24 @@ if(localStorage.getItem("username")===null){
      * coincida con el título y la descripción del item.
     */
     cuadroBusqueda.addEventListener("keyup", ()=>{
-        //console.log(cuadroBusqueda.value);
         let texto = cuadroBusqueda.value.toLowerCase();
         texto = quitarAcentos(texto);
-        let htmlContent="";
+        banner.innerHTML="";
         for(let producto of list){
             let nom = producto.name.toLowerCase();
             let descr = producto.description.toLowerCase();
     
             if(nom.indexOf(texto) !== -1 || descr.indexOf(texto) !== -1){
                 
-                
-                mostrarItems(list);
+                banner.innerHTML += mostrarFiltrado(producto.id, producto.image, producto.name, producto.description, 
+                    producto.cost, producto.soldCount);
                 
             }
         }
     
     });
     
+   
     
     /**Con este método se quitan los acentos del texto ingresado */
     
@@ -133,6 +133,15 @@ if(localStorage.getItem("username")===null){
         for(let dato in data.products){
             list.push(data.products[dato]);
         }
+
+        for(let item in list){
+            let dat = list[item];
+
+            banner.innerHTML += mostrarFiltrado(dat.id, dat.image, dat.name, dat.description, 
+                dat.cost, dat.soldCount);
+        }
+
+
         mostrarItems(list);
     
     })
@@ -140,45 +149,25 @@ if(localStorage.getItem("username")===null){
         console.log(error)
     });
     
-    
-    //console.log(list);
-    let arrayDeListado = [];
-    
-    
 
     btnFiltrar.addEventListener("click", ()=>{
     
-        let htmlContent="";
-        let variables = {};
         let dato=0;
-        
+        banner.innerHTML="";
         for(dato of list){
             if(dato.cost >= min.value && dato.cost <= max.value || dato.cost >=max.value && dato.cost <= min.value){
-                //console.log(dato);
-                //mostrarItems(list)
-                let id = dato.id;
-                let img = dato.image;
-                let name = dato.name;
-                let desc = dato.description;
-                let cost = dato.cost;
-                let sold = dato.soldCount
                 
-                variables = {
-                    id: id,
-                    image: img,
-                    name: name,
-                    description: desc,
-                    cost: cost,
-                    sold: sold
 
-                }
-                arrayDeListado.push(variables);
-                mostrarItems(arrayDeListado);
-                /*mostrarItemsEnFuncionDe(dato.id, dato.image, dato.name, dato.description, 
-                    dato.cost, dato.soldCount);*/
+                banner.innerHTML += mostrarFiltrado(dato.id, dato.image, dato.name, dato.description, 
+                    dato.cost, dato.soldCount);
                 
             }else if(min.value==="" && max.value===""){
-                //mostrarItems(list);
+                for(let item in list){
+                    let dat = list[item];
+        
+                    banner.innerHTML += mostrarFiltrado(dat.id, dat.image, dat.name, dat.description, 
+                        dat.cost, dat.soldCount);
+                }
                 console.log("error");
             }
             
@@ -189,79 +178,50 @@ if(localStorage.getItem("username")===null){
     
     
     btnLimpiar.addEventListener("click", ()=>{
-        mostrarItems(list);
+        
         max.value = "";
         min.value = "";
+        banner.innerHTML="";
+        for(let item in list){
+                    let dat = list[item];
+        
+                    banner.innerHTML += mostrarFiltrado(dat.id, dat.image, dat.name, dat.description, 
+                        dat.cost, dat.soldCount);
+                }
+        
     
     });
 
-    
-    function mostrarItems(array){
-        let htmlContent="";
-        //console.log(array);
-        for(let item in array){
-            let dat = array[item];
-            
-            
-            htmlContent += `
+
+
+    function mostrarFiltrado(id, image, name, description, cost, soldCount){
+        
+        let htmlContent = "";
+        return `
     
         
-        <div onclick="setProdId(${dat.id})" class="list-group-item list-group-item-action cursor-active">
+        <div onclick="setProdId(${id})" class="list-group-item list-group-item-action cursor-active">
         <div class="row">
             <div class="col-3">
-                <img src="` + dat.image + `" alt="product image" class="img-thumbnail">
+                <img src="` + image + `" alt="product image" class="img-thumbnail">
             </div>
             <div class="col">
                 <div class="d-flex w-100 justify-content-between">
                     <div class="mb-1">
-                    <h2> `+ dat.name +`</h2>
-                    <p> `+ dat.description +`</p>
-                    <h4> U$D `+ dat.cost +`</h4>
+                    <h2> `+ name +`</h2>
+                    <p> `+ description +`</p>
+                    <h4> U$D `+ cost +`</h4>
                     </div>
-                    <small class=text-muted> Cantidad venididos: `+ dat.soldCount +`</small>
+                    <small class=text-muted> Cantidad venididos: `+ soldCount +`</small>
                     
                 </div>
                 </div>
             </div>
         </div>                
                 `
-                document.getElementById("products-list").innerHTML = htmlContent;
-        }
-        
-    
-    /*for(let i=0; i<array.length; i++){
-    
-        
-        let items = array[i];
-    
-        
-        htmlContent += `
-    
-        
-        <div onclick="setProdId(${items.id})" class="list-group-item list-group-item-action cursor-active">
-        <div class="row">
-            <div class="col-3">
-                <img src="` + items.image + `" alt="product image" class="img-thumbnail">
-            </div>
-            <div class="col">
-                <div class="d-flex w-100 justify-content-between">
-                    <div class="mb-1">
-                    <h2> `+ items.name +`</h2>
-                    <p> `+ items.description +`</p>
-                    <h4> U$D `+ items.cost +`</h4>
-                    </div>
-                    <small class=text-muted> Cantidad venididos: `+ items.soldCount +`</small>
-                    
-                </div>
-                </div>
-            </div>
-        </div>                
-                `
-                document.getElementById("products-list").innerHTML = htmlContent;
-        
-        
-            
-    };*/
+                //document.getElementById("products-list").innerHTML += htmlContent;
+    }
+
     };
-}
+
 

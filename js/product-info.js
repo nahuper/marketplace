@@ -46,32 +46,40 @@ if(localStorage.getItem("username")===null){
             document.getElementById("tipoDeProducto").innerHTML = titulo;
         }
 
-    fetch(urlFormateado)
-        .then((res) => {return res.json()})
-        .then((data) => {
-    
+        function showData(cost, description, category, soldCount){
             let camposHTML = "";
-            let imagenes = "";
-            
-            mostrarTituloDeProducto(data.name);
-
             camposHTML += `<div class="col">
                 <div class="d-flex w-100 justify-content-between">
                     <div class="mb-1">
                     <h2> Precio </h2>
-                    <p> UYU`+ data.cost +`</p>
+                    <p> UYU`+ cost +`</p>
                     <h2> Description </h2>
-                    <p>` + data.description + `</p>
+                    <p>` + description + `</p>
                     <h2> Categoría </h2>
-                    <p>` + data.category + `</p>
+                    <p>` + category + `</p>
                     <h2> Cantidad vendidos </h2>
-                    <p>` + data.soldCount + `</p>
+                    <p>` + soldCount + `</p>
                     <h2>Imágenes ilustrativas:</h2>
                     </div>
     
                     
                 </div>
                 </div>`
+            
+            
+            document.getElementById("dataProduct").innerHTML = camposHTML;
+        }
+
+    fetch(urlFormateado)
+        .then((res) => {return res.json()})
+        .then((data) => {
+    
+            
+            let imagenes = "";
+            
+            mostrarTituloDeProducto(data.name);
+            showData(data.cost, data.description, data.category, data.soldCount);
+            
     
                 for(let dat in data.images){
     
@@ -102,7 +110,7 @@ if(localStorage.getItem("username")===null){
                     
                 }
     
-            document.getElementById("dataProduct").innerHTML = camposHTML;
+            
             document.getElementById("imgs").innerHTML = imagenes;
         })
         .catch(error=>{
