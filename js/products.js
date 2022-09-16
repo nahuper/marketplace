@@ -15,7 +15,7 @@ const PRODUCTS_COLLECTION = PRODUCTS + catId + EXTENSION;
 
 
 if(localStorage.getItem("username")===null){
-    location.href="../marketplace/login.html";
+    location.href="../login.html";
 }else{
     function setProdId(id){
         localStorage.setItem("prodID", id);
@@ -38,34 +38,12 @@ if(localStorage.getItem("username")===null){
             let descr = producto.description.toLowerCase();
     
             if(nom.indexOf(texto) !== -1 || descr.indexOf(texto) !== -1){
-                htmlContent += `
-    
-        
-                <div onclick="setProdId(${producto.id})" class="list-group-item list-group-item-action cursor-active">
-                    <div class="row">
-                        <div class="col-3">
-                            <img src="` + producto.image + `" alt="product image" class="img-thumbnail">
-                        </div>
-                        <div class="col">
-                            <div class="d-flex w-100 justify-content-between">
-                                <div class="mb-1">
-                                <h2> `+ producto.name +`</h2>
-                                <p> `+ producto.description +`</p>
-                                <h4> U$D `+ producto.cost +`</h4>
-                                </div>
-                                <small class=text-muted> Cantidad venididos: `+ producto.soldCount +`</small>
-                                
-                            </div>
-                            </div>
-                        </div>
-                    </div>                 
-                `
+                
+                
+                mostrarItems(list);
                 
             }
         }
-    
-        
-        document.getElementById("products-list").innerHTML = htmlContent;
     
     });
     
@@ -93,7 +71,7 @@ if(localStorage.getItem("username")===null){
             }
             return 0;
         });
-        mostrarItems();
+        mostrarItems(list);
     
     });
     
@@ -111,7 +89,7 @@ if(localStorage.getItem("username")===null){
             return 0;
     
         });
-        mostrarItems();
+        mostrarItems(list);
     });
     
     
@@ -129,102 +107,134 @@ if(localStorage.getItem("username")===null){
             return 0;
     
         });
-        mostrarItems();
+        mostrarItems(list);
     });
+
+    function mostrarNombreCategoria(catName){
+        /*Se obtiene del JSON formateado (legible) el dato del nombre de la categoría
+        y se lo pasa al HTML para mostrarlo en la categoría seleccionada*/ 
+        let titulo="";
     
-    mostrarItems();
+        titulo +=`<h2>${catName}</h2>`
+    
+    
+        document.getElementById("tituloArticulo").innerHTML = titulo;
+    }
     
     fetch(PRODUCTS_COLLECTION)
     
     .then(response => {return response.json()})
     .then(data=>{
-        
-    
-        /*Se obtiene del JSON formateado (legible) el dato del nombre de la categoría
-        y se lo pasa al HTML para mostrarlo en la categoría seleccionada*/ 
-        let titulo="";
-    
-        titulo +=`<h2>${data.catName}</h2>`
-    
-    
-        document.getElementById("tituloArticulo").innerHTML = titulo;
-    
-        console.log(data.catName);
-        
-        
+ 
+        mostrarNombreCategoria(data.catName)
     /*Se recorre los productos dentro de una categoría dada y se muestran en 
     el HTML categoría por categoría*/
     
         for(let dato in data.products){
             list.push(data.products[dato]);
         }
-        mostrarItems();
+        mostrarItems(list);
     
     })
     .catch(error=>{
         console.log(error)
     });
     
-    console.log(list);
     
+    //console.log(list);
+    let arrayDeListado = [];
+    
+    
+
     btnFiltrar.addEventListener("click", ()=>{
     
         let htmlContent="";
-    
+        let variables = {};
         let dato=0;
-    
+        
         for(dato of list){
             if(dato.cost >= min.value && dato.cost <= max.value || dato.cost >=max.value && dato.cost <= min.value){
-                console.log(dato.cost);
-                htmlContent += `
-    
-                <div onclick="setProdId(${dato.id})" class="list-group-item list-group-item-action cursor-active">
-                    <div class="row">
-                        <div class="col-3">
-                            <img src="` + dato.image + `" alt="product image" class="img-thumbnail">
-                        </div>
-                        <div class="col">
-                            <div class="d-flex w-100 justify-content-between">
-                                <div class="mb-1">
-                                <h2> `+ dato.name +`</h2>
-                                <p> `+ dato.description +`</p>
-                                <h4> U$D `+ dato.cost +`</h4>
-                                </div>
-                                <small class=text-muted> Cantidad venididos: `+ dato.soldCount +`</small>
-                                
-                            </div>
-                            </div>
-                        </div>
-                    </div>                
-                `
-                document.getElementById("products-list").innerHTML = htmlContent;
+                //console.log(dato);
+                //mostrarItems(list)
+                let id = dato.id;
+                let img = dato.image;
+                let name = dato.name;
+                let desc = dato.description;
+                let cost = dato.cost;
+                let sold = dato.soldCount
+                
+                variables = {
+                    id: id,
+                    image: img,
+                    name: name,
+                    description: desc,
+                    cost: cost,
+                    sold: sold
+
+                }
+                arrayDeListado.push(variables);
+                mostrarItems(arrayDeListado);
+                /*mostrarItemsEnFuncionDe(dato.id, dato.image, dato.name, dato.description, 
+                    dato.cost, dato.soldCount);*/
                 
             }else if(min.value==="" && max.value===""){
-                mostrarItems();
+                //mostrarItems(list);
                 console.log("error");
             }
             
         }
+        return variables;
     });
+
+    
     
     btnLimpiar.addEventListener("click", ()=>{
-        mostrarItems();
+        mostrarItems(list);
         max.value = "";
         min.value = "";
     
     });
+
     
-    function mostrarItems(){
+    function mostrarItems(array){
         let htmlContent="";
-    
+        //console.log(array);
+        for(let item in array){
+            let dat = array[item];
+            
+            
+            htmlContent += `
     
         
+        <div onclick="setProdId(${dat.id})" class="list-group-item list-group-item-action cursor-active">
+        <div class="row">
+            <div class="col-3">
+                <img src="` + dat.image + `" alt="product image" class="img-thumbnail">
+            </div>
+            <div class="col">
+                <div class="d-flex w-100 justify-content-between">
+                    <div class="mb-1">
+                    <h2> `+ dat.name +`</h2>
+                    <p> `+ dat.description +`</p>
+                    <h4> U$D `+ dat.cost +`</h4>
+                    </div>
+                    <small class=text-muted> Cantidad venididos: `+ dat.soldCount +`</small>
+                    
+                </div>
+                </div>
+            </div>
+        </div>                
+                `
+                document.getElementById("products-list").innerHTML = htmlContent;
+        }
+        
     
-    for(let i=0; i<list.length; i++){
+    /*for(let i=0; i<array.length; i++){
     
         
-        let items = list[i];
+        let items = array[i];
     
+        
         htmlContent += `
     
         
@@ -251,7 +261,7 @@ if(localStorage.getItem("username")===null){
         
         
             
-    };
+    };*/
     };
 }
 

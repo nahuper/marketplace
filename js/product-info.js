@@ -13,9 +13,102 @@ let cargaComentarios="";
 
 
 if(localStorage.getItem("username")===null){
-    location.href="../marketplace/login.html";
+    location.href="../login.html";
 }else{
 
+    document.addEventListener("DOMContentLoaded", ()=>{
+
+        const listItems = JSON.parse(localStorage.getItem(`listComments${idProd}`));
+        fetch(urlComments)
+        .then((result)=>{return result.json()})
+        .then((dat) => {
+            if(listItems===null){
+                publicationList = dat;
+                showComment();
+            }else{
+                publicationList=listItems;
+                showComment();
+            }
+            
+        })
+        .catch(error=>{
+            console.log(error);
+        });
+    
+        function mostrarTituloDeProducto(name){
+            /*Se obtiene del JSON formateado (legible) el dato del nombre del producto
+            y se lo pasa al HTML para mostrarlo la página de detalles del producto seleccionado*/ 
+            let titulo="";
+    
+            titulo +=`<h2>${name}</h2>`
+    
+    
+            document.getElementById("tipoDeProducto").innerHTML = titulo;
+        }
+
+    fetch(urlFormateado)
+        .then((res) => {return res.json()})
+        .then((data) => {
+    
+            let camposHTML = "";
+            let imagenes = "";
+            
+            mostrarTituloDeProducto(data.name);
+
+            camposHTML += `<div class="col">
+                <div class="d-flex w-100 justify-content-between">
+                    <div class="mb-1">
+                    <h2> Precio </h2>
+                    <p> UYU`+ data.cost +`</p>
+                    <h2> Description </h2>
+                    <p>` + data.description + `</p>
+                    <h2> Categoría </h2>
+                    <p>` + data.category + `</p>
+                    <h2> Cantidad vendidos </h2>
+                    <p>` + data.soldCount + `</p>
+                    <h2>Imágenes ilustrativas:</h2>
+                    </div>
+    
+                    
+                </div>
+                </div>`
+    
+                for(let dat in data.images){
+    
+                    imagenes += `
+    
+                    <div class="row">
+                    <div class="column" id="img">
+                        <img class="img-thumbnail img-fluid" src="${data.images[dat]}" class="img-thumbnail">   
+                    </div>
+                    </div>
+                    
+                    <style>
+                        img{
+                            width: 30%;
+                        }
+                        .row{
+                            display: flex;
+                            padding: 5px;
+                            flex-wrap: wrap;
+                        }
+                        #id{
+                            flex: 25%;
+                            padding: 5px;
+                        }
+                    </style>
+                    
+                    `
+                    
+                }
+    
+            document.getElementById("dataProduct").innerHTML = camposHTML;
+            document.getElementById("imgs").innerHTML = imagenes;
+        })
+        .catch(error=>{
+            console.log(error)
+        });
+    })
   
 
     btnPublish.addEventListener("click", ()=>{
@@ -89,101 +182,7 @@ if(localStorage.getItem("username")===null){
         }
     }
 
-    document.addEventListener("DOMContentLoaded", ()=>{
-
-        const listItems = JSON.parse(localStorage.getItem(`listComments${idProd}`));
-        fetch(urlComments)
-        .then((result)=>{return result.json()})
-        .then((dat) => {
-            if(listItems===null){
-                publicationList = dat;
-                showComment();
-            }else{
-                publicationList=listItems;
-                showComment();
-            }
-            
-        })
-        .catch(error=>{
-            console.log(error);
-        });
     
-    
-    fetch(urlFormateado)
-        .then((res) => {return res.json()})
-        .then((data) => {
-    
-            let camposHTML = "";
-            let imagenes = "";
-            
-            
-            
-            /*Se obtiene del JSON formateado (legible) el dato del nombre del producto
-            y se lo pasa al HTML para mostrarlo la página de detalles del producto seleccionado*/ 
-            let titulo="";
-    
-            titulo +=`<h2>${data.name}</h2>`
-    
-    
-            document.getElementById("tipoDeProducto").innerHTML = titulo;
-    
-           
-            
-    
-            camposHTML += `<div class="col">
-                <div class="d-flex w-100 justify-content-between">
-                    <div class="mb-1">
-                    <h2> Precio </h2>
-                    <p> UYU`+ data.cost +`</p>
-                    <h2> Description </h2>
-                    <p>` + data.description + `</p>
-                    <h2> Categoría </h2>
-                    <p>` + data.category + `</p>
-                    <h2> Cantidad vendidos </h2>
-                    <p>` + data.soldCount + `</p>
-                    <h2>Imágenes ilustrativas:</h2>
-                    </div>
-    
-                    
-                </div>
-                </div>`
-    
-                for(let dat in data.images){
-    
-                    imagenes += `
-    
-                    <div class="row">
-                    <div class="column" id="img">
-                        <img class="img-thumbnail img-fluid" src="${data.images[dat]}" class="img-thumbnail">   
-                    </div>
-                    </div>
-                    
-                    <style>
-                        img{
-                            width: 30%;
-                        }
-                        .row{
-                            display: flex;
-                            padding: 5px;
-                            flex-wrap: wrap;
-                        }
-                        #id{
-                            flex: 25%;
-                            padding: 5px;
-                        }
-                    </style>
-                    
-                    `
-                    
-                }
-    
-            document.getElementById("dataProduct").innerHTML = camposHTML;
-            document.getElementById("imgs").innerHTML = imagenes;
-        })
-        .catch(error=>{
-            console.log(error)
-        });
-    })
     
     
 }
