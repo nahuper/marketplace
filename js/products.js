@@ -15,7 +15,7 @@ const PRODUCTS_COLLECTION = PRODUCTS + catId + EXTENSION;
 
 
 if(localStorage.getItem("username")===null){
-    location.href="../login.html";
+    location.href="../marketplace/login.html";
 }else{
     function setProdId(id){
         localStorage.setItem("prodID", id);

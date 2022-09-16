@@ -15,7 +15,7 @@ btn.addEventListener('click', function(){
         document.getElementById("respuesta").innerHTML =  '<div class="border border-success p-2 mb-2">Loging in</div>';
         /**Aquí se guarda en el local storage el username del usuario */
         localStorage.setItem("username", username);
-        location.href="../index.html";
+        location.href="../marketplace/index.html";
         
     }else{
         
