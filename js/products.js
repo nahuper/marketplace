@@ -71,8 +71,7 @@ if(localStorage.getItem("username")===null){
             }
             return 0;
         });
-        mostrarItems(list);
-    
+        recorrerArreglo();
     });
     
     /** Se listan los items de forma ascendente en base al costo del producto */
@@ -89,7 +88,7 @@ if(localStorage.getItem("username")===null){
             return 0;
     
         });
-        mostrarItems(list);
+        recorrerArreglo();
     });
     
     
@@ -107,7 +106,7 @@ if(localStorage.getItem("username")===null){
             return 0;
     
         });
-        mostrarItems(list);
+        recorrerArreglo();
     });
 
     function mostrarNombreCategoria(catName){
@@ -133,22 +132,23 @@ if(localStorage.getItem("username")===null){
         for(let dato in data.products){
             list.push(data.products[dato]);
         }
-
-        for(let item in list){
-            let dat = list[item];
-
-            banner.innerHTML += mostrarFiltrado(dat.id, dat.image, dat.name, dat.description, 
-                dat.cost, dat.soldCount);
-        }
-
-
-        mostrarItems(list);
+        recorrerArreglo();
     
     })
     .catch(error=>{
         console.log(error)
     });
     
+
+    function recorrerArreglo(){
+        banner.innerHTML="";
+        for(let item in list){
+            let dat = list[item];
+
+            banner.innerHTML += mostrarFiltrado(dat.id, dat.image, dat.name, dat.description, 
+                dat.cost, dat.soldCount);
+        }
+    }
 
     btnFiltrar.addEventListener("click", ()=>{
     
@@ -162,12 +162,7 @@ if(localStorage.getItem("username")===null){
                     dato.cost, dato.soldCount);
                 
             }else if(min.value==="" && max.value===""){
-                for(let item in list){
-                    let dat = list[item];
-        
-                    banner.innerHTML += mostrarFiltrado(dat.id, dat.image, dat.name, dat.description, 
-                        dat.cost, dat.soldCount);
-                }
+                recorrerArreglo();
                 console.log("error");
             }
             
