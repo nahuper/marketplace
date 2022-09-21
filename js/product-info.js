@@ -67,7 +67,7 @@ if(localStorage.getItem("username")===null){
 
         titulo +=`<h2>${name}</h2>`
 
-        console.log(name)
+        
         document.getElementById("tipoDeProducto").innerHTML = titulo;
     }
 
@@ -101,27 +101,27 @@ if(localStorage.getItem("username")===null){
 
 
     function setProdId(id){
-        
-        console.log(id);
-        /*localStorage.removeItem("prodID");
+      
         localStorage.setItem("prodID", id);
-        window.location = "product-info.html";*/
+        window.location = "product-info.html";
     }
 
+    
     
     function showRelatedProducts(data){
         
         let itemsRelated = "";
-        
-
+ 
         for(let itemProd of data){
            
+
             itemsRelated += `
             <div onclick="setProdId(${itemProd.id})" class="list-group-item list-group-item-action cursor-active" class="d-flex w-100 justify-content-between">
                 <div class="row">
-                <div class="mb-1">
-                <h3>` + itemProd.name + `</h3>
-                <img class="img-thumbnail img-fluid" src="${itemProd.image}" class="img-thumbnail">
+                    <div class="mb-1">
+                        <h3>` + itemProd.name + `</h3>
+                        <img class="img-thumbnail img-fluid" src="${itemProd.image}" class="img-thumbnail">
+                    </div>
                 </div>
             </div>
             
