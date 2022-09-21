@@ -232,9 +232,11 @@ a.custom-card:hover {
   margin-top: 3rem;
 }
 
-
-
 #btnPublish{
   margin-top: 0.2rem;
   margin-left: 20rem;
+}
+
+.tituloProdRelacionados{
+  margin-top: 4rem;
 }

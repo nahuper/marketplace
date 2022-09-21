@@ -40,92 +40,140 @@ if(localStorage.getItem("username")===null){
         .catch(error=>{
             console.log(error);
         });
-    
-        function mostrarTituloDeProducto(name){
-            
-            let titulo="";
-    
-            titulo +=`<h2>${name}</h2>`
-    
-    
-            document.getElementById("tipoDeProducto").innerHTML = titulo;
-        }
-
-
-        /**Aquí se recibe por parámetro todos los atributos del item y se los muestra en pantalla */
-
-        function showData(cost, description, category, soldCount){
-            let camposHTML = "";
-            camposHTML += `<div class="col">
-                <div class="d-flex w-100 justify-content-between">
-                    <div class="mb-1">
-                    <h2> Precio </h2>
-                    <p> UYU`+ cost +`</p>
-                    <h2> Description </h2>
-                    <p>` + description + `</p>
-                    <h2> Categoría </h2>
-                    <p>` + category + `</p>
-                    <h2> Cantidad vendidos </h2>
-                    <p>` + soldCount + `</p>
-                    <h2>Imágenes ilustrativas:</h2>
-                    </div>
-    
-                    
-                </div>
-                </div>`
-            
-            
-            document.getElementById("dataProduct").innerHTML = camposHTML;
-        }
-        
 
     /** Aquí se obtiene la url de los productos */    
 
     fetch(urlFormateado)
         .then((res) => {return res.json()})
         .then((data) => {
-    
-            
-            let imagenes = "";
-            
+            showRelatedProducts(data.relatedProducts);
             mostrarTituloDeProducto(data.name);
             showData(data.cost, data.description, data.category, data.soldCount);
+            showImagesOfProduct(data);
             
-            /**Aquí se muestran las imágenes del artículo seleccionado */
-    
-                for(let dat in data.images){
-    
-                    imagenes += `
-    
-                    <div class="row">
-                    <div class="column" id="img">
-                        <img class="img-thumbnail img-fluid" src="${data.images[dat]}" class="img-thumbnail">   
-                    </div>
-                    </div>
-                    
-                    <style>
-                        img{
-                            width: 30%;
-                        }
-                        .row{
-                            display: flex;
-                            padding: 5px;
-                            flex-wrap: wrap;
-                        }
-                        #id{
-                            flex: 25%;
-                            padding: 5px;
-                        }
-                    </style>
-                    
-                    `
-                }
-            document.getElementById("imgs").innerHTML = imagenes;
+            //console.log(data);
+            
         })
         .catch(error=>{
             console.log(error)
         });
     });
+
+    
+
+    function mostrarTituloDeProducto(name){
+            
+        let titulo="";
+
+        titulo +=`<h2>${name}</h2>`
+
+        console.log(name)
+        document.getElementById("tipoDeProducto").innerHTML = titulo;
+    }
+
+
+    /**Aquí se recibe por parámetro todos los atributos del item y se los muestra en pantalla */
+
+    function showData(cost, description, category, soldCount){
+        let camposHTML = "";
+        
+        camposHTML += `<div class="col">
+            <div class="d-flex w-100 justify-content-between">
+                <div class="mb-1">
+                <h2> Precio </h2>
+                <p> UYU`+ cost +`</p>
+                <h2> Description </h2>
+                <p>` + description + `</p>
+                <h2> Categoría </h2>
+                <p>` + category + `</p>
+                <h2> Cantidad vendidos </h2>
+                <p>` + soldCount + `</p>
+                <h2>Imágenes ilustrativas:</h2>
+                </div>
+
+                
+            </div>
+            </div>`
+        
+        
+        document.getElementById("dataProduct").innerHTML = camposHTML;
+    }
+
+
+    function setProdId(id){
+        
+        console.log(id);
+        /*localStorage.removeItem("prodID");
+        localStorage.setItem("prodID", id);
+        window.location = "product-info.html";*/
+    }
+
+    
+    function showRelatedProducts(data){
+        
+        let itemsRelated = "";
+        
+
+        for(let itemProd of data){
+           
+            itemsRelated += `
+            <div onclick="setProdId(${itemProd.id})" class="list-group-item list-group-item-action cursor-active" class="d-flex w-100 justify-content-between">
+                <div class="row">
+                <div class="mb-1">
+                <h3>` + itemProd.name + `</h3>
+                <img class="img-thumbnail img-fluid" src="${itemProd.image}" class="img-thumbnail">
+                </div>
+            </div>
+            
+            <style>
+
+                h3{
+                    margin: 1rem;
+                }
+                img{
+                    margin: 2rem;
+                }
+            </style>
+            
+            `
+        }
+
+        document.getElementById("related-products").innerHTML = itemsRelated;
+    }
+
+    /**Aquí se muestran las imágenes del artículo seleccionado */
+    function showImagesOfProduct(data){
+        let imagenes = "";
+        
+        for(let dat in data.images){
+            imagenes += `
+
+                <div class="row">
+                <div class="column" id="img">
+                    <img class="img-thumbnail img-fluid" src="${data.images[dat]}" class="img-thumbnail">   
+                </div>
+                </div>
+                
+                <style>
+                    img{
+                        width: 30%;
+                    }
+                    .row{
+                        display: flex;
+                        padding: 5px;
+                        flex-wrap: wrap;
+                    }
+                    #id{
+                        flex: 25%;
+                        padding: 5px;
+                    }
+                </style>
+                
+                `
+                
+        }
+        document.getElementById("imgs").innerHTML = imagenes;
+    }
   
 
     btnPublish.addEventListener("click", ()=>{
