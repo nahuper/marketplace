@@ -20,7 +20,7 @@ btn.addEventListener('click', function(){
         
     }else{
         
-        document.getElementById("respuesta").innerHTML =  '<div class="h4 pb-2 mb-4 text-danger border-bottom border-danger">No se ingresó el correo con el formato correo (Ej: pepe@gmail.com), o la contraseña no tiene un mínimo de 8 caractéres, ni una mayúscula, ni minúscula, ni un número o bien no ingresó ningún dato (Abcd123456)</div>';
+        document.getElementById("respuesta").innerHTML =  '<div class="h4 pb-2 mb-4 text-danger border-bottom border-danger">No se ingresó el correo con el formato correo (Ej: pepe@gmail.com), o la contraseña no tiene un mínimo de 8 caractéres, ni una mayúscula, ni minúscula, ni un número o bien no ingresó ningún dato (Ej: Abcd123456)</div>';
         
     }
 
