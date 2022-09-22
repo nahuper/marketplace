@@ -45,16 +45,25 @@ let getJSONData = function(url){
 
 
 /*Aquí se toma el dato del nombre de usuario desde el local storage y se muestra en la página con innerHTML*/
-const btn = document.getElementById("btnLogin");
 
-
-  if(localStorage.getItem("username")){
-    let nombreUsuario = localStorage.getItem("username");
-    document.getElementById("usrName").innerHTML = `<a class="nav-item">${nombreUsuario}</a>`
-      
-  }else{
-      console.log("No hay entradas en el local storage");
+  function userNameReturn(){
+    if(localStorage.getItem("username")){
+      let nombreUsuario = localStorage.getItem("username");
+      document.getElementById("usrName").innerHTML = `${nombreUsuario}`
+      return nombreUsuario;
+    }
   }
+
+
+  userNameReturn();
+
+  function closeSession(){
+    localStorage.removeItem("username");
+    location.href="../login.html";
+  }
+  //console.log(userNameReturn());
+
+  
 
 
 

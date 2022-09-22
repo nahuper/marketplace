@@ -240,3 +240,7 @@ a.custom-card:hover {
 .tituloProdRelacionados{
   margin-top: 4rem;
 }
+
+#close-session{
+  color: red;
+}

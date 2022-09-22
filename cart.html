@@ -26,12 +26,16 @@
           <li class="nav-item">
             <a class="nav-link" href="categories.html">Categorías</a>
           </li>
-          <li class="nav-item">
-            <a class="nav-link" href="sell.html">Vender</a>
-          </li>
-          <li class="nav-item" id="usrName">
-            
-          </li>
+          <div class="btn-group">
+            <button type="button" id="usrName" class="btn btn-secondary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+              
+            </button>
+            <ul class="dropdown-menu">
+              <li><a class="dropdown-item" href="my-profile.html">Mi perfil</a></li>
+              <li><hr class="dropdown-divider"></li>
+              <li><a class="dropdown-item" id="close-session" onclick="closeSession()">Cerrar Sesión</a></li>
+            </ul>
+          </div>
           <li class="nav-item">
           </li>
         </ul>
