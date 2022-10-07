@@ -13,7 +13,7 @@ let cargaComentarios="";
 
 
 if(localStorage.getItem("username")===null){
-    location.href="../marketplace/login.html";
+    location.href="../login.html";
 }else{
 
 
@@ -46,6 +46,7 @@ if(localStorage.getItem("username")===null){
     fetch(urlFormateado)
         .then((res) => {return res.json()})
         .then((data) => {
+            console.log(data);
             showRelatedProducts(data.relatedProducts);
             mostrarTituloDeProducto(data.name);
             showData(data.cost, data.description, data.category, data.soldCount);
@@ -99,7 +100,10 @@ if(localStorage.getItem("username")===null){
         document.getElementById("dataProduct").innerHTML = camposHTML;
     }
 
-
+    /** Se obtiene el id que se le pasa por parámetro y se setea en el prodID, 
+     * haciendo que se sobreescriba y redirige la vista a la misma página con el producto
+     * seleccionado por el usuario
+     */
     function setProdId(id){
       
         localStorage.setItem("prodID", id);
@@ -107,7 +111,7 @@ if(localStorage.getItem("username")===null){
     }
 
     
-    
+    /**Se muestran los productos relacionados recorriendo el array de objetos de productos relacionados */
     function showRelatedProducts(data){
         
         let itemsRelated = "";
@@ -143,65 +147,12 @@ if(localStorage.getItem("username")===null){
 
     /**Aquí se muestran las imágenes del artículo seleccionado */
     function showImagesOfProduct(data){
-        let imagenes = "";
+        document.getElementById("img1").innerHTML = `<img src="${data.images[0]}" class="d-block w-100" alt="...">`;
+        document.getElementById("img2").innerHTML = `<img src="${data.images[1]}" class="d-block w-100" alt="...">`;
+        document.getElementById("img3").innerHTML = `<img src="${data.images[2]}" class="d-block w-100" alt="...">`;
+        document.getElementById("img4").innerHTML = `<img src="${data.images[3]}" class="d-block w-100" alt="...">`;
         
-        imagenes += `
-        <div id="carouselExampleControls" class="carousel slide carousel-fade" data-bs-ride="carousel">
-            <div class="carousel-inner">
-                <div class="carousel-item active" data-bs-interval="5000">
-                    <img src="${data.images[0]}" class="d-block w-100" alt="...">
-                </div>
-                <div class="carousel-item" data-bs-interval="5000">
-                    <img src="${data.images[1]}" class="d-block w-100" alt="...">
-                </div>
-                <div class="carousel-item" data-bs-interval="5000">
-                    <img src="${data.images[2]}" class="d-block w-100" alt="...">
-                </div>
-                <div class="carousel-item" data-bs-interval="5000">
-                    <img src="${data.images[3]}" class="d-block w-100" alt="...">
-                </div>
-        </div>
-        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="prev">
-            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-            <span class="visually-hidden">Previous</span>
-        </button>
-        <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="next">
-            <span class="carousel-control-next-icon" aria-hidden="true"></span>
-            <span class="visually-hidden">Next</span>
-        </button>
-        </div>
-        `
-        document.getElementById("imgs").innerHTML = imagenes;
-        /*for(let dat in data.images){
-
-            console.log(dat);
-            console.log(data.images[0]);
-            imagenes += `
-
-                <div class="row">
-                <div class="column" id="img">
-                    <img class="img-thumbnail img-fluid" src="${data.images[dat]}" class="img-thumbnail">   
-                </div>
-                </div>
-                
-                <style>
-                    img{
-                        width: 30%;
-                    }
-                    .row{
-                        display: flex;
-                        padding: 5px;
-                        flex-wrap: wrap;
-                    }
-                    #id{
-                        flex: 25%;
-                        padding: 5px;
-                    }
-                </style>
-                
-                `
-                
-        }*/
+       
     }
   
 
@@ -244,7 +195,7 @@ if(localStorage.getItem("username")===null){
     
     });
 
-    
+    /**Aquí se recorre la lista de comentarios y se muestra en pantalla */
     function showComment(){
 
         

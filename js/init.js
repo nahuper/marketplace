@@ -54,12 +54,14 @@ let getJSONData = function(url){
     }
   }
 
-
+  /**Se elimina el nombre de usuario logueado en el local storage,
+   * haciendo que el usuario vuelva a la página de login
+   */
   userNameReturn();
 
   function closeSession(){
     localStorage.removeItem("username");
-    location.href="../marketplace/login.html";
+    location.href="../login.html";
   }
   //console.log(userNameReturn());
 

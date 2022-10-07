@@ -15,7 +15,7 @@ const PRODUCTS_COLLECTION = PRODUCTS + catId + EXTENSION;
 
 
 if(localStorage.getItem("username")===null){
-    location.href="../marketplace/login.html";
+    location.href="../login.html";
 }else{
 
     /**Aquí este procedimiento recibe un id de producto y lo guarda en el localstorage y luego redirige a la página product-info */

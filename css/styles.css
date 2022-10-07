@@ -244,3 +244,45 @@ a.custom-card:hover {
 #close-session{
   color: red;
 }
+
+h1{
+  text-align: center;
+  margin-top: 2rem;
+}
+
+h3{
+  margin-top: 2rem;
+  margin-bottom: 1rem;
+}
+
+.rowTitle{
+  align-content: center;
+  margin: 2rem;
+  
+}
+
+.rowData{
+  align-content: center;
+  margin: 2rem;
+}
+
+.subTotal{
+  margin-left: 4rem;
+}
+
+#name{
+  margin-left: 3rem;
+}
+
+#cost{
+  margin-left: 0.5rem;
+}
+
+#valueBox{
+  margin-left: 1.5rem;
+}
+
+#rowD{
+  margin-left: 8rem;
+}
+
