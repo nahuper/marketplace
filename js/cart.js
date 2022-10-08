@@ -13,7 +13,7 @@ let subtotal=0;
 
 
 if(localStorage.getItem("username")===null){
-    location.href="../login.html";
+    location.href="../marketplace/login.html";
 }else{
 
     fetch(URL_FORMATED)
