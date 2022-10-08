@@ -61,7 +61,7 @@ let getJSONData = function(url){
 
   function closeSession(){
     localStorage.removeItem("username");
-    location.href="../login.html";
+    location.href="../marketplace/login.html";
   }
   //console.log(userNameReturn());
 
