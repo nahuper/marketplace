@@ -33,54 +33,40 @@ if(localStorage.getItem("username")===null){
 
     })
 
-    const valueBox = document.getElementById("value");
-    valueBox.addEventListener("keyup", ()=>{
+    
+    document.addEventListener("input", ()=>{
         //const modCant = valueBox;
-        printOnScreen();
-
+        cant = document.querySelector("input").value;
+        showModifiedData();
     })
 
-    function printOnScreen(){
-        
-        const v = valueBox.value;
-        console.log(v);
+    function calculateCost(){
+        subtotal = cost * cant;
     }
 
-    function calculateCost(cant){
-        subtotal = cost * cant;
+    function showModifiedData(){
+        calculateCost()
+        document.querySelector("input").value = cant;
+        document.getElementById("img").innerHTML = `<img id="img" src=${img} width="85" height="70">`;
+        document.getElementById("nom").innerHTML = nom;
+        document.getElementById("cost").innerHTML = cost;
+        document.getElementById("subtotal").innerHTML = subtotal;
     }
 
     function showData(){
         let html="";
-        //console.log(JSON.parse(localStorage.getItem(`dataCart${localStorage.getItem("userId")}`)));
         nom = JSON.parse(localStorage.getItem(`dataCart${localStorage.getItem("userId")}`))[0].name;
         cost = JSON.parse(localStorage.getItem(`dataCart${localStorage.getItem("userId")}`))[0].unitCost;
         cant = JSON.parse(localStorage.getItem(`dataCart${localStorage.getItem("userId")}`))[0].count;
         img = JSON.parse(localStorage.getItem(`dataCart${localStorage.getItem("userId")}`))[0].image;
         
-        calculateCost(cant);
+        calculateCost();
         
-        /*console.log(nom);
-        console.log(cost);
-        console.log(cant);*/
-        document.getElementById("value").innerHTML = `<input id="valueBox" type="number" value=${cant} style="width: 3rem; height: 3rem">`
+        document.querySelector("input").value = cant;
         document.getElementById("img").innerHTML = `<img id="img" src=${img} width="85" height="70">`;
         document.getElementById("nom").innerHTML = nom;
         document.getElementById("cost").innerHTML = cost;
         document.getElementById("subtotal").innerHTML = subtotal;
-
-        /*html += `
-
-        <hr size="5px" style="background-color:black; width: 50rem">
-        <img id="img" src=${img} width="85" height="70">
-        <spam id="nom" class="rowData" id="name">${nom}</spam>
-        <spam id="cost" class="rowData" id="cost">U$D ${cost}</spam>
-        
-        <strong><spam id="subtotal" class="subTotal">U$D ${subtotal}</spam></strong>
-        <hr size="5px" style="background-color:black; width: 50rem">
-        `;*/
-
-        //document.getElementById("tableData").innerHTML = html;
     }
     
 }
