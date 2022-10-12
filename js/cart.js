@@ -55,10 +55,16 @@ if(localStorage.getItem("username")===null){
 
     function showData(){
         let html="";
-        nom = JSON.parse(localStorage.getItem(`dataCart${localStorage.getItem("userId")}`))[0].name;
-        cost = JSON.parse(localStorage.getItem(`dataCart${localStorage.getItem("userId")}`))[0].unitCost;
-        cant = JSON.parse(localStorage.getItem(`dataCart${localStorage.getItem("userId")}`))[0].count;
-        img = JSON.parse(localStorage.getItem(`dataCart${localStorage.getItem("userId")}`))[0].image;
+
+        const arr = JSON.parse(localStorage.getItem(`dataCart${localStorage.getItem("userId")}`));
+
+        for(let i of arr){
+            nom = i.name;
+            cost = i.unitCost;
+            cant = i.count;
+            img = i.image;
+        }
+        
         
         calculateCost();
         
