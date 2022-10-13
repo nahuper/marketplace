@@ -1,5 +1,8 @@
 const USER_CART_URL = "https://japceibal.github.io/emercado-api/user_cart/";
+const prod_url = "https://japceibal.github.io/emercado-api/products/";
+const getProdId = localStorage.getItem("prodID");
 const EXT_JSON = ".json";
+const url_formated_products = prod_url + getProdId + EXT_JSON;
 const ID_USR = "25801";
 const URL_FORMATED = USER_CART_URL + ID_USR + EXT_JSON;
 const countValue = document.getElementById("")
@@ -28,11 +31,13 @@ if(localStorage.getItem("username")===null){
             //console.log(i)
             prechargedObjects.push(i);
         }
+        console.log(articles);
         localStorage.setItem(`dataCart${localStorage.getItem("userId")}`, JSON.stringify(prechargedObjects));
         showData();
 
     })
 
+    
     
     document.addEventListener("input", ()=>{
         //const modCant = valueBox;

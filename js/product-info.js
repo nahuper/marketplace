@@ -8,7 +8,9 @@ const urlComments = PRODUCTS_COMMENTS + idProd + EXTENSION_FORMAT;
 const comments = document.getElementsByClassName("comments-container");
 const stars = document.getElementById("stars");
 const btnPublish = document.getElementById("btnPublish");
+const btnAddToCart = document.getElementById("btnAddToCart");
 let publicationList = [];
+let arrayProducts = [];
 let cargaComentarios="";
 
 
@@ -43,22 +45,51 @@ if(localStorage.getItem("username")===null){
 
     /** Aquí se obtiene la url de los productos */    
 
+    //let objProducts = {};
+    let arrayProducts = [];
     fetch(urlFormateado)
         .then((res) => {return res.json()})
         .then((data) => {
-            console.log(data);
+            //console.log(data);
             showRelatedProducts(data.relatedProducts);
             mostrarTituloDeProducto(data.name);
             showData(data.cost, data.description, data.category, data.soldCount);
             showImagesOfProduct(data);
+            btnAddToCart.addEventListener("click", ()=>{
+                formatObject(data);
+            })
             
-            //console.log(data);
             
+
+            //console.log(objProducts);
         })
         .catch(error=>{
             console.log(error)
         });
     });
+
+    
+    function formatObject(data){
+        
+        
+        let objProducts = {
+                
+            count: data.soldCount,
+            currency: data.currency,
+            id: data.id,
+            image: data.images[0],
+            name: data.name,
+            unitCost: data.currency
+        }
+        arrayProducts.push(objProducts);
+        
+        //console.log(arrayProducts);
+    }
+
+    
+
+    //console.log(arrayProducts);
+
 
     
 
@@ -109,6 +140,8 @@ if(localStorage.getItem("username")===null){
         localStorage.setItem("prodID", id);
         window.location = "product-info.html";
     }
+
+    
 
     
     /**Se muestran los productos relacionados recorriendo el array de objetos de productos relacionados */
