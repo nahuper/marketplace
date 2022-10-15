@@ -45,12 +45,11 @@ if(localStorage.getItem("username")===null){
 
     /** Aquí se obtiene la url de los productos */    
 
-    //let objProducts = {};
-    let arrayProducts = [];
+    
     fetch(urlFormateado)
         .then((res) => {return res.json()})
         .then((data) => {
-            //console.log(data);
+            console.log(data);
             showRelatedProducts(data.relatedProducts);
             mostrarTituloDeProducto(data.name);
             showData(data.cost, data.description, data.category, data.soldCount);
@@ -68,30 +67,29 @@ if(localStorage.getItem("username")===null){
         });
     });
 
-    
+    //let arrayItemsProducts = [];
     function formatObject(data){
         
         
         let objProducts = {
                 
             count: data.soldCount,
-            currency: data.currency,
             id: data.id,
             image: data.images[0],
             name: data.name,
-            unitCost: data.currency
+            unitCost: data.cost,
+            currency: data.currency
+        }
+        //console.log(data.cost)
+
+        const d = JSON.parse(localStorage.getItem("arrayProducts"));
+        if(d!==null){
+            arrayProducts=d;
         }
         arrayProducts.push(objProducts);
+        localStorage.setItem("arrayProducts", JSON.stringify(arrayProducts));
         
-        //console.log(arrayProducts);
     }
-
-    
-
-    //console.log(arrayProducts);
-
-
-    
 
     function mostrarTituloDeProducto(name){
             
