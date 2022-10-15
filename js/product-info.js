@@ -88,6 +88,7 @@ if(localStorage.getItem("username")===null){
         }
         arrayProducts.push(objProducts);
         localStorage.setItem("arrayProducts", JSON.stringify(arrayProducts));
+        document.getElementById("mensajeDeAgregado").innerHTML = `<strong><p>Artículo agregado con éxito al carrito de compras!</p></strong>`
         
     }
 
