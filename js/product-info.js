@@ -45,8 +45,7 @@ if(localStorage.getItem("username")===null){
 
     /** Aquí se obtiene la url de los productos */    
 
-    //let objProducts = {};
-    let arrayProducts = [];
+    
     fetch(urlFormateado)
         .then((res) => {return res.json()})
         .then((data) => {
@@ -71,6 +70,7 @@ if(localStorage.getItem("username")===null){
     
     function formatObject(data){
         
+        const dat = JSON.parse(localStorage.getItem("prodArray"));
         
         let objProducts = {
                 
@@ -81,9 +81,17 @@ if(localStorage.getItem("username")===null){
             name: data.name,
             unitCost: data.currency
         }
+
+        /*if(dat===null){
+            arrayProducts=objProducts;
+        }*/
+
+        //arrayProducts += objProducts;
         arrayProducts.push(objProducts);
         
-        //console.log(arrayProducts);
+        console.log(arrayProducts);
+        localStorage.setItem("prodArray", JSON.stringify(arrayProducts));
+
     }
 
     
