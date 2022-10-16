@@ -49,7 +49,7 @@ if(localStorage.getItem("username")===null){
     fetch(urlFormateado)
         .then((res) => {return res.json()})
         .then((data) => {
-            //console.log(data);
+            console.log(data);
             showRelatedProducts(data.relatedProducts);
             mostrarTituloDeProducto(data.name);
             showData(data.cost, data.description, data.category, data.soldCount);
@@ -67,7 +67,7 @@ if(localStorage.getItem("username")===null){
         });
     });
 
-    
+    //let arrayItemsProducts = [];
     function formatObject(data){
         
         const dat = JSON.parse(localStorage.getItem("prodArray"));
@@ -75,11 +75,17 @@ if(localStorage.getItem("username")===null){
         let objProducts = {
                 
             count: data.soldCount,
-            currency: data.currency,
             id: data.id,
             image: data.images[0],
             name: data.name,
-            unitCost: data.currency
+            unitCost: data.cost,
+            currency: data.currency
+        }
+        //console.log(data.cost)
+
+        const d = JSON.parse(localStorage.getItem("arrayProducts"));
+        if(d!==null){
+            arrayProducts=d;
         }
 
         /*if(dat===null){
@@ -88,18 +94,16 @@ if(localStorage.getItem("username")===null){
 
         //arrayProducts += objProducts;
         arrayProducts.push(objProducts);
+        localStorage.setItem("arrayProducts", JSON.stringify(arrayProducts));
+        document.getElementById("mensajeDeAgregado").innerHTML = `<strong><p>Artículo agregado con éxito al carrito de compras!</p></strong>`
         
+<<<<<<< HEAD
         console.log(arrayProducts);
         localStorage.setItem("prodArray", JSON.stringify(arrayProducts));
 
+=======
+>>>>>>> b13c16524887378b1d3a90d4f204c8fbe48bc214
     }
-
-    
-
-    //console.log(arrayProducts);
-
-
-    
 
     function mostrarTituloDeProducto(name){
             

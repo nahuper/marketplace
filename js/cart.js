@@ -1,18 +1,19 @@
 const USER_CART_URL = "https://japceibal.github.io/emercado-api/user_cart/";
-const prod_url = "https://japceibal.github.io/emercado-api/products/";
-const getProdId = localStorage.getItem("prodID");
+const prodUrl = "https://japceibal.github.io/emercado-api/products/";
+const idP = localStorage.getItem("prodID");
 const EXT_JSON = ".json";
-const url_formated_products = prod_url + getProdId + EXT_JSON;
+const URL_PROD = prodUrl + idP + EXT_JSON;
 const ID_USR = "25801";
 const URL_FORMATED = USER_CART_URL + ID_USR + EXT_JSON;
+const array = JSON.parse(localStorage.getItem("arrayProducts"));
 const countValue = document.getElementById("")
+const container = document.getElementById("container");
 let prechargedObjects = [];
 let nom = "";
 let cost = 0;
-let cant = 0;
 let img = "";
 let subtotal=0;
-//let idUser = "";
+let currency="";
 
 
 if(localStorage.getItem("username")===null){
@@ -31,54 +32,88 @@ if(localStorage.getItem("username")===null){
             //console.log(i)
             prechargedObjects.push(i);
         }
-        console.log(articles);
         localStorage.setItem(`dataCart${localStorage.getItem("userId")}`, JSON.stringify(prechargedObjects));
         showData();
 
     })
 
     
-    
     document.addEventListener("input", ()=>{
-        //const modCant = valueBox;
+        //console.log("prueba")
         cant = document.querySelector("input").value;
-        showModifiedData();
+        showModifiedData(cant);
+        
+        
     })
 
-    function calculateCost(){
-        subtotal = cost * cant;
+    function calculateCost(cant, cost){
+        return cost * cant;
     }
 
-    function showModifiedData(){
-        calculateCost()
+    function showModifiedData(cant){
+        
         document.querySelector("input").value = cant;
         document.getElementById("img").innerHTML = `<img id="img" src=${img} width="85" height="70">`;
         document.getElementById("nom").innerHTML = nom;
-        document.getElementById("cost").innerHTML = cost;
-        document.getElementById("subtotal").innerHTML = subtotal;
+        document.getElementById("cost").innerHTML = `<spam>${currency}</spam>` + cost;
+        document.getElementById("subtotal").innerHTML = `<spam>${currency}</spam>` + calculateCost(cant, cost);
     }
+
+    
 
     function showData(){
         let html="";
-
+        let cant=0;
         const arr = JSON.parse(localStorage.getItem(`dataCart${localStorage.getItem("userId")}`));
+        if(arr===null){
+            console.log("ERROR");
+        }else{
+            for(let i of arr){
+                nom = i.name;
+                cost = i.unitCost;
+                cant = i.count;
+                img = i.image;
+                currency = i.currency;
 
-        for(let i of arr){
-            nom = i.name;
-            cost = i.unitCost;
-            cant = i.count;
-            img = i.image;
+                
+            
+                document.querySelector("input").value = cant;
+                document.getElementById("img").innerHTML = `<img id="img" src=${img} width="85" height="70">`;
+                document.getElementById("nom").innerHTML = nom;
+                document.getElementById("cost").innerHTML = `<spam>${currency}</spam>` + cost;
+                document.getElementById("subtotal").innerHTML = `<spam>${currency}</spam>` + calculateCost(cant, cost);
+            
+            }
+        }
+    }
+
+
+    function recorrerArreglo(){
+        
+        if(array===null){
+            console.log("El array está vacío")
+        }else{
+            for(let i of array){
+                let subtotal = calculateCost(i.count, i.unitCost);
+                container.innerHTML += showProds(i.count, i.image, i.name, i.unitCost, subtotal, i.currency);
+            }
         }
         
-        
-        calculateCost();
-        
-        document.querySelector("input").value = cant;
-        document.getElementById("img").innerHTML = `<img id="img" src=${img} width="85" height="70">`;
-        document.getElementById("nom").innerHTML = nom;
-        document.getElementById("cost").innerHTML = cost;
-        document.getElementById("subtotal").innerHTML = subtotal;
     }
-    
+
+    recorrerArreglo();
+
+    function showProds(cant, img, nom, cost, subtotal, currency){
+        return `<div class="col-6" id="tableData">
+        <hr size="5px" style="background-color:black; width: 50rem">
+        <img id="img" src=${img} width="85" height="70">
+        <spam class="rowData">${nom}</spam>
+        <spam class="rowData"><spam>${currency}</spam>${cost}</spam>
+        <input type="number" id="inputId" value=${cant} style="width: 3rem; height: 3rem; margin-left: 2.4rem;">
+        <strong><spam class="subTotal"><spam>${currency}</spam>${subtotal}</spam></strong>
+        <hr size="5px" style="background-color:black; width: 50rem">
+          
+        </div>`
+    }
 }
 
