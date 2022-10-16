@@ -298,3 +298,13 @@ button{
   margin-top: 1rem;
 }
 
+#btnAddToCart{
+  margin-left: 16rem;
+  margin-top: -1rem;
+  
+}
+
+#mensajeDeAgregado{
+  margin-left: 16rem;
+  margin-top: 0.4rem;
+}

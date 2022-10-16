@@ -97,12 +97,9 @@ if(localStorage.getItem("username")===null){
         localStorage.setItem("arrayProducts", JSON.stringify(arrayProducts));
         document.getElementById("mensajeDeAgregado").innerHTML = `<strong><p>Artículo agregado con éxito al carrito de compras!</p></strong>`
         
-<<<<<<< HEAD
         console.log(arrayProducts);
         localStorage.setItem("prodArray", JSON.stringify(arrayProducts));
 
-=======
->>>>>>> b13c16524887378b1d3a90d4f204c8fbe48bc214
     }
 
     function mostrarTituloDeProducto(name){
