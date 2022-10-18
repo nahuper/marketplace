@@ -93,7 +93,7 @@
           <label for="inputCalle" class="col-form-label" id="nameField">Calle:</label>
         </div>
         <div class="col-auto">
-          <input class="fieldForm" placeholder="Ej: Bulevar Gral Artigas" type="text" id="inputPassword6" class="form-control" aria-describedby="passwordHelpInline">
+          <input class="form-control" class="fieldForm" placeholder="Ej: Bulevar Gral Artigas" type="text" id="inputPassword6" class="form-control" aria-describedby="passwordHelpInline">
         </div>
       </div>
       
@@ -102,7 +102,7 @@
           <label for="inputCalle" class="col-form-label" id="nameField">Número:</label>
         </div>
         <div class="col-auto">
-          <input class="fieldForm" placeholder="Ej: 2222" type="text" id="inputPassword6" class="form-control" aria-describedby="passwordHelpInline">
+          <input class="form-control" class="fieldForm" placeholder="Ej: 2222" type="text" id="inputPassword6" class="form-control" aria-describedby="passwordHelpInline">
         </div>
       </div>
       
@@ -112,13 +112,67 @@
           <label for="inputCalle" class="col-form-label" id="nameField">Esquina:</label>
         </div>
         <div class="col-auto">
-          <input class="fieldForm" placeholder="Ej: Ombúes" type="text" id="inputPassword6" class="form-control" aria-describedby="passwordHelpInline">
+          <input class="form-control" class="fieldForm" placeholder="Ej: Ombúes" type="text" id="inputPassword6" class="form-control" aria-describedby="passwordHelpInline">
         </div>
       </div>
 
-      <button type="button" class="btn btn-primary">Enviar</button>
+
+
+      <h3>Costos</h3>
+      
+      <div class="row" style="margin: 2rem;">
+        <hr size="5px" style="background-color:black; width: 50rem">
+          <div class="col-10" class="row-10" style="margin-left: 1rem;">
+              <div class="d-flex w-100 justify-content-between">
+                  <div class="mb-1">
+                  <p class="text-muted"> Subtotal general:</p>
+                  </div>
+                  <span class="text-muted" style="margin-top: 0.4rem; margin-right: 15rem;" id="subtotalGeneral"></span>
+                  
+              </div>
+              </div>
+              <hr size="5px" style="background-color:black; width: 50rem">
+          </div>
+
+
+
+          <div class="row" style="margin: 2rem;">
+            <hr size="5px" style="background-color:black; width: 50rem">
+              <div class="col-10" class="row-10" style="margin-left: 1rem;">
+                  <div class="d-flex w-100 justify-content-between">
+                      <div class="mb-1">
+                      <p class="text-muted">Costo de envío:</p>
+                      </div>
+                      <span class="text-muted" style="margin-top: 0.4rem; margin-right: 15rem;" id="costoEnvio"></span>
+                      
+                  </div>
+                  </div>
+                  <hr size="5px" style="background-color:black; width: 50rem">
+              </div>
+
+
+
+              <div class="row" style="margin: 2rem;">
+                <hr size="5px" style="background-color:black; width: 50rem">
+                  <div class="col-10" class="row-10" style="margin-left: 1rem;">
+                      <div class="d-flex w-100 justify-content-between">
+                          <div class="mb-1">
+                          <p class="text-muted">Total ($):</p>
+                          </div>
+                          <span class="text-muted" style="margin-top: 0.4rem; margin-right: 15rem;" id="total"></span>
+                          
+                      </div>
+                      </div>
+                      <hr size="5px" style="background-color:black; width: 50rem">
+                  </div>
+
+
 
     </div>
+
+
+      
+
   </main>
   <footer class="text-muted">
     <div class="container">
