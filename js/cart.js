@@ -12,7 +12,6 @@ const premiumRadio = document.getElementById("premium");
 const expressRadio = document.getElementById("express");
 const standardRadio = document.getElementById("standard");
 const totalCost = document.getElementById("total");
-let subtotalGeneral = 0;
 let resultShippingCost = 0;
 let prechargedObjects = [];
 let subtotales = [];
@@ -27,7 +26,7 @@ let currency="";
 
 
 if(localStorage.getItem("username")===null){
-    location.href="../marketplace/login.html";
+    location.href="../login.html";
 }else{
 
     document.addEventListener("DOMContentLoaded", ()=>{
@@ -57,10 +56,6 @@ if(localStorage.getItem("username")===null){
         //console.log("prueba")
         cant = document.querySelector("input").value;
         showModifiedData(cant);
-
-        showSubtotals();
-        
-        
     })
 
     function calculateCost(cant, cost){
@@ -137,41 +132,41 @@ if(localStorage.getItem("username")===null){
 
 
     function showSubtotals(){
-        
+        let subtotalGeneral =0;
         for(let i=0; i<subtotales.length; i++){
             subtotalGeneral += subtotales[i];
             
         }
         document.getElementById("subtotalGeneral").innerHTML = `U$D &nbsp` + subtotalGeneral;
-        
+        return subtotalGeneral;
         
     }
 
 
-    premiumRadio.addEventListener("input", ()=>{
+    premiumRadio.addEventListener("click", ()=>{
     
     
-        resultShippingCost = subtotalGeneral * 0.15;
+        resultShippingCost = showSubtotals() * 0.15;
         shippingCost.innerHTML = `U$D &nbsp` + resultShippingCost;
         calculateTotalCost()
     });
     
-    expressRadio.addEventListener("input", ()=>{
+    expressRadio.addEventListener("click", ()=>{
         
-        resultShippingCost = subtotalGeneral * 0.7;
+        resultShippingCost = showSubtotals() * 0.7;
         shippingCost.innerHTML = `U$D &nbsp` + resultShippingCost;
         calculateTotalCost()
     });
     
-    standardRadio.addEventListener("input", ()=>{
+    standardRadio.addEventListener("click", ()=>{
         
-        resultShippingCost = subtotalGeneral * 0.05;
+        resultShippingCost = showSubtotals() * 0.05;
         shippingCost.innerHTML = `U$D &nbsp` + resultShippingCost;
         calculateTotalCost()
     });
 
     function calculateTotalCost(){
-        let sumatoria = resultShippingCost + subtotalGeneral;
+        let sumatoria = resultShippingCost + showSubtotals();
         totalCost.innerHTML = `<strong>U$D</strong> &nbsp` + `<strong>${sumatoria}</strong>`;
     }
 }

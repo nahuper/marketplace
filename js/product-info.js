@@ -15,7 +15,7 @@ let cargaComentarios="";
 
 
 if(localStorage.getItem("username")===null){
-    location.href="../marketplace/login.html";
+    location.href="../login.html";
 }else{
 
 
