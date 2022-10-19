@@ -55,9 +55,10 @@ if(localStorage.getItem("username")===null){
     inputCant.addEventListener("input", ()=>{
         //console.log("prueba")
         cant = document.querySelector("input").value;
-        //showModifiedData(cant);
         showData(cant);
         showSubtotals();
+        //showModifiedData(cant);
+        
     })
 
     function calculateCost(cant, cost){
@@ -146,22 +147,24 @@ if(localStorage.getItem("username")===null){
 
     premiumRadio.addEventListener("click", ()=>{
     
-    
-        resultShippingCost = subtotalGeneral * 0.15;
+        let mitad = subtotalGeneral*(15/100);
+        resultShippingCost = mitad * 0.15;
         shippingCost.innerHTML = `U$D &nbsp` + resultShippingCost;
         calculateTotalCost()
     });
     
     expressRadio.addEventListener("click", ()=>{
         
-        resultShippingCost = subtotalGeneral * 0.7;
+        let mitad = subtotalGeneral*(7/100);
+        resultShippingCost = mitad * 0.07;
         shippingCost.innerHTML = `U$D &nbsp` + resultShippingCost;
         calculateTotalCost()
     });
     
     standardRadio.addEventListener("click", ()=>{
         
-        resultShippingCost = subtotalGeneral * 0.05;
+        let mitad = subtotalGeneral*(5/100);
+        resultShippingCost = mitad * 0.05;
         shippingCost.innerHTML = `U$D &nbsp` + resultShippingCost;
         calculateTotalCost()
     });
