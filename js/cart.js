@@ -49,31 +49,23 @@ if(localStorage.getItem("username")===null){
     })
     })
 
-    
+    const inputCant = document.getElementById("valueInput");
 
 
-    document.addEventListener("input", ()=>{
+    inputCant.addEventListener("input", ()=>{
         //console.log("prueba")
         cant = document.querySelector("input").value;
-        showModifiedData(cant);
+        //showModifiedData(cant);
+        showData(cant);
+        showSubtotals();
     })
 
     function calculateCost(cant, cost){
         return cost * cant;
     }
 
-    function showModifiedData(cant){
-        
-        document.querySelector("input").value = cant;
-        document.getElementById("img").innerHTML = `<img id="img" src=${img} width="85" height="70">`;
-        document.getElementById("nom").innerHTML = nom;
-        document.getElementById("cost").innerHTML = `<spam>${currency}</spam>` + cost;
-        document.getElementById("subtotal").innerHTML = `<spam>${currency}</spam>` + calculateCost(cant, cost);
-    }
 
-    
-
-    function showData(){
+    function showData(valueInput){
         let html="";
         let cant=0;
         const arr = JSON.parse(localStorage.getItem(`dataCart${localStorage.getItem("userId")}`));
@@ -94,7 +86,18 @@ if(localStorage.getItem("username")===null){
                 document.getElementById("img").innerHTML = `<img id="img" src=${img} width="85" height="70">`;
                 document.getElementById("nom").innerHTML = nom;
                 document.getElementById("cost").innerHTML = `<spam>${currency}</spam> &nbsp` + cost;
-                document.getElementById("subtotal").innerHTML = `<spam>${currency}</spam>` + calculateCost(cant, cost);
+                document.getElementById("subtotal").innerHTML = `<spam>${currency}</spam>` + subtotal;
+
+                if(valueInput > 1){
+                    let subtotal = calculateCost(valueInput, cost);
+                subtotales.push(subtotal);
+
+                document.querySelector("input").value = valueInput;
+                document.getElementById("img").innerHTML = `<img id="img" src=${img} width="85" height="70">`;
+                document.getElementById("nom").innerHTML = nom;
+                document.getElementById("cost").innerHTML = `<spam>${currency}</spam> &nbsp` + cost;
+                document.getElementById("subtotal").innerHTML = `<spam>${currency}</spam>` + subtotal;
+                }
             
             }
         }
@@ -130,43 +133,41 @@ if(localStorage.getItem("username")===null){
         </div>`
     }
 
-
+    let subtotalGeneral =0;
     function showSubtotals(){
-        let subtotalGeneral =0;
+        
         for(let i=0; i<subtotales.length; i++){
             subtotalGeneral += subtotales[i];
             
         }
         document.getElementById("subtotalGeneral").innerHTML = `U$D &nbsp` + subtotalGeneral;
-        return subtotalGeneral;
-        
     }
 
 
     premiumRadio.addEventListener("click", ()=>{
     
     
-        resultShippingCost = showSubtotals() * 0.15;
+        resultShippingCost = subtotalGeneral * 0.15;
         shippingCost.innerHTML = `U$D &nbsp` + resultShippingCost;
         calculateTotalCost()
     });
     
     expressRadio.addEventListener("click", ()=>{
         
-        resultShippingCost = showSubtotals() * 0.7;
+        resultShippingCost = subtotalGeneral * 0.7;
         shippingCost.innerHTML = `U$D &nbsp` + resultShippingCost;
         calculateTotalCost()
     });
     
     standardRadio.addEventListener("click", ()=>{
         
-        resultShippingCost = showSubtotals() * 0.05;
+        resultShippingCost = subtotalGeneral * 0.05;
         shippingCost.innerHTML = `U$D &nbsp` + resultShippingCost;
         calculateTotalCost()
     });
 
     function calculateTotalCost(){
-        let sumatoria = resultShippingCost + showSubtotals();
+        let sumatoria = resultShippingCost + subtotalGeneral;
         totalCost.innerHTML = `<strong>U$D</strong> &nbsp` + `<strong>${sumatoria}</strong>`;
     }
 }
