@@ -26,7 +26,7 @@ let currency="";
 
 
 if(localStorage.getItem("username")===null){
-    location.href="../login.html";
+    location.href="../marketplace/login.html";
 }else{
 
     document.addEventListener("DOMContentLoaded", ()=>{
