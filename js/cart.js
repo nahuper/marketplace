@@ -19,6 +19,7 @@ const accountNmberBank = document.getElementById("accountNumber");
 const numberCard = document.getElementById("numberCard");
 const securityCode = document.getElementById("codigoSeg");
 const vencimiento = document.getElementById("vencimiento");
+const btnBuy = document.getElementById("btnBuy");
 let resultShippingCost = 0;
 let prechargedObjects = [];
 let subtotales = [];
@@ -105,11 +106,18 @@ if(localStorage.getItem("username")===null){
                 document.getElementById("nom").innerHTML = nom;
                 document.getElementById("cost").innerHTML = `<spam>${currency}</spam> &nbsp` + cost;
                 document.getElementById("subtotal").innerHTML = `<spam>${currency}</spam>` + subtotal;
+                }else if(valueInput==0 || valueInput<0){
+                    document.querySelector("input").value = valueInput;
+                document.getElementById("img").innerHTML = `<img id="img" src=${img} width="85" height="70">`;
+                document.getElementById("nom").innerHTML = nom;
+                document.getElementById("cost").innerHTML = `<spam>${currency}</spam> &nbsp` + cost;
+                document.getElementById("subtotal").innerHTML = `<spam>${currency}</spam>` + 0;
                 }
             
             }
         }
     }
+
 
 
     function recorrerArreglo(){
@@ -215,6 +223,50 @@ if(localStorage.getItem("username")===null){
         numberCard.disabled=true;
         securityCode.disabled=true;
         vencimiento.disabled=true;
+    })
+
+    btnBuy.addEventListener("click", ()=>{
+        const calle = document.getElementById("calle");
+        const numero = document.getElementById("numero");
+        const esquina = document.getElementById("esquina");
+        
+        /*if((calle.value!="" && numero.value!="" && esquina.value!="") && (premiumRadio.checked === true ||
+            standardRadio.checked===true || expressRadio.checked===true)){
+                console.log("EXITO!");
+            }else{
+                console.log("ERROR!")
+            }*/
+
+
+        if(calle.value=="" || numero.value=="" || esquina.value==""){
+            console.log("DEBE RELLENAR TODOS LOS CAMPOS")
+        }else{
+            console.log("TODOS LOS CAMPOS RELLENOS")
+        }
+
+        if(creditCard.checked===true || bankTransfer.checked===true){
+            console.log("SE SELECCIONÓ UNA OPCIÓN")
+        }else{
+            console.log("DEBE SELECCIONAR AL MENOS UNA OPCIÓN")
+        }
+
+        if(premiumRadio.checked===true || expressRadio.checked===true || standardRadio.checked===true){
+            console.log("SE SELECCIONÓ UNA OPCIÓN")
+        }else{
+            console.log("DEBE SELECCIONAR UNA OPCIÓN")
+        }
+
+        if(inputCant.value>0){
+            console.log("CANTIDAD CORRECTA")
+        }else{
+            console.log("LA CANTIDAD DEBE SER MAYOR A 0")
+        }
+
+        if(numberCard.value =="" || securityCode.value=="" || vencimiento.value==""){
+            console.log("LOS CAMPOS DE LA TARJETA ESTÁN VACÍOS")
+        }else{
+            console.log("LOS CAMPOS ESTÁN RELLENOS")
+        }
     })
     
 }
