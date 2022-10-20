@@ -183,13 +183,7 @@ if(localStorage.getItem("username")===null){
     }
 
     buttonSelectPaymentMethod.addEventListener("click", ()=>{
-        if(creditCard.checked===false){
-            accountNmberBank.disabled = true;
-            numberCard.disabled=true;
-            securityCode.disabled=true;
-            vencimiento.disabled=true;
-        }
-        if(bankTransfer.checked===false){
+        if(creditCard.checked===false && bankTransfer.checked===false){
             accountNmberBank.disabled = true;
             numberCard.disabled=true;
             securityCode.disabled=true;
