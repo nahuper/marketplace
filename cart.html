@@ -166,8 +166,67 @@
                       <hr size="5px" style="background-color:black; width: 50rem">
                   </div>
 
+    
 
+                  <!-- Button trigger modal -->
 
+<h2>Forma de pago</h2>
+
+<div id="tipoDePago">No seleccionado</div>
+<label type="button" id="buttonSelect" data-bs-toggle="modal" data-bs-target="#exampleModal" style="color:blue;">
+  Seleccionar
+</label>
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel"><strong>Forma de pago</strong></h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <div>
+          <input type="radio" id="creditCard" name="radio" value="Trajeta de crédito">
+          <label for="creditCard">Tarjeta de crédito</label>
+        </div>
+        <hr size="3px" style="background-color:black; width: 50rem">
+        <div class="col-4">
+          <label for="numberCard" class="form-label">Número de tarjeta</label>
+          <input type="text" class="form-control" id="numberCard" aria-describedby="emailHelp">
+          
+          
+        </div>
+        <div class="col-3" >
+          <label for="codigoSeg" class="form-label">Código de Seg.</label>
+          <input type="text" class="form-control" id="codigoSeg" aria-describedby="emailHelp">
+          
+        </div>
+
+        <div class="col-4" >
+          <label for="vencimiento" class="form-label">Vencimiento (MM/AA)</label>
+          <input type="date" class="form-control" id="vencimiento" aria-describedby="emailHelp">
+          
+        </div>
+
+        <div id="radioBank">
+          <input type="radio" id="bankTranfer" name="radio" value="Transferencia bancaria">
+          <label for="bankTranfer">Transferencia bancaria</label>
+        </div>
+
+        <div class="col-6">
+          <label for="accountNumber" class="form-label">Número de cuenta</label>
+          <input type="text" class="form-control" id="accountNumber" aria-describedby="emailHelp">
+          
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Close</button>
+        
+      </div>
+    </div>
+  </div>
+</div>
     </div>
 
 

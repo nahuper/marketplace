@@ -11,7 +11,14 @@ const container = document.getElementById("container");
 const premiumRadio = document.getElementById("premium");
 const expressRadio = document.getElementById("express");
 const standardRadio = document.getElementById("standard");
+const creditCard = document.getElementById("creditCard");
+const bankTransfer = document.getElementById("bankTranfer");
+const buttonSelectPaymentMethod = document.getElementById("buttonSelect");
 const totalCost = document.getElementById("total");
+const accountNmberBank = document.getElementById("accountNumber");
+const numberCard = document.getElementById("numberCard");
+const securityCode = document.getElementById("codigoSeg");
+const vencimiento = document.getElementById("vencimiento");
 let resultShippingCost = 0;
 let prechargedObjects = [];
 let subtotales = [];
@@ -169,9 +176,50 @@ if(localStorage.getItem("username")===null){
         calculateTotalCost()
     });
 
+
     function calculateTotalCost(){
         let sumatoria = resultShippingCost + subtotalGeneral;
         totalCost.innerHTML = `<strong>U$D</strong> &nbsp` + `<strong>${sumatoria}</strong>`;
     }
+
+    buttonSelectPaymentMethod.addEventListener("click", ()=>{
+        if(creditCard.checked===false){
+            accountNmberBank.disabled = true;
+            numberCard.disabled=true;
+            securityCode.disabled=true;
+            vencimiento.disabled=true;
+        }
+        if(bankTransfer.checked===false){
+            accountNmberBank.disabled = true;
+            numberCard.disabled=true;
+            securityCode.disabled=true;
+            vencimiento.disabled=true;
+        }
+        
+    })
+    creditCard.addEventListener("click", ()=>{
+        
+        if(creditCard.checked===true){
+            let creditCardValue = creditCard.value;
+            document.getElementById("tipoDePago").innerHTML=`${creditCardValue}`;
+            accountNmberBank.disabled = true;
+            numberCard.disabled=false;
+            securityCode.disabled=false;
+            vencimiento.disabled=false;
+        }
+    })
+
+    bankTransfer.addEventListener("click", ()=>{
+        
+        if(bankTransfer.checked===true){
+            let bankTransferValue = bankTransfer.value;
+            document.getElementById("tipoDePago").innerHTML = `${bankTransferValue}`;
+            accountNmberBank.disabled = false;
+            numberCard.disabled=true;
+            securityCode.disabled=true;
+            vencimiento.disabled=true;
+        }
+    })
+    
 }
 
