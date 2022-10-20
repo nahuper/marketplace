@@ -183,36 +183,38 @@ if(localStorage.getItem("username")===null){
     }
 
     buttonSelectPaymentMethod.addEventListener("click", ()=>{
-        if(creditCard.checked===false && bankTransfer.checked===false){
-            accountNmberBank.disabled = true;
-            numberCard.disabled=true;
-            securityCode.disabled=true;
-            vencimiento.disabled=true;
-        }
+        creditCard.checked ? false : true && 
+        bankTransfer.checked ? false : true
+
+        accountNmberBank.disabled = true;
+        numberCard.disabled=true;
+        securityCode.disabled=true;
+        vencimiento.disabled=true;
         
     })
+    
     creditCard.addEventListener("click", ()=>{
         
-        if(creditCard.checked===true){
-            let creditCardValue = creditCard.value;
-            document.getElementById("tipoDePago").innerHTML=`${creditCardValue}`;
-            accountNmberBank.disabled = true;
-            numberCard.disabled=false;
-            securityCode.disabled=false;
-            vencimiento.disabled=false;
-        }
+        creditCard.checked ? true : false
+
+        let creditCardValue = creditCard.value;
+        document.getElementById("tipoDePago").innerHTML=`${creditCardValue}`;
+        accountNmberBank.disabled = true;
+        numberCard.disabled=false;
+        securityCode.disabled=false;
+        vencimiento.disabled=false;
     })
 
     bankTransfer.addEventListener("click", ()=>{
         
-        if(bankTransfer.checked===true){
-            let bankTransferValue = bankTransfer.value;
-            document.getElementById("tipoDePago").innerHTML = `${bankTransferValue}`;
-            accountNmberBank.disabled = false;
-            numberCard.disabled=true;
-            securityCode.disabled=true;
-            vencimiento.disabled=true;
-        }
+        bankTransfer.checked ? true : false
+        
+        let bankTransferValue = bankTransfer.value;
+        document.getElementById("tipoDePago").innerHTML = `${bankTransferValue}`;
+        accountNmberBank.disabled = false;
+        numberCard.disabled=true;
+        securityCode.disabled=true;
+        vencimiento.disabled=true;
     })
     
 }
