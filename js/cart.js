@@ -34,7 +34,7 @@ let currency="";
 
 
 if(localStorage.getItem("username")===null){
-    location.href="../marketplace/login.html";
+    location.href="../login.html";
 }else{
 
     document.addEventListener("DOMContentLoaded", ()=>{
@@ -64,7 +64,6 @@ if(localStorage.getItem("username")===null){
         //console.log("prueba")
         cant = document.querySelector("input").value;
         showData(cant);
-        showSubtotals();
         //showModifiedData(cant);
         
     })
@@ -73,14 +72,19 @@ if(localStorage.getItem("username")===null){
         return cost * cant;
     }
 
-
+    let subt=0;
+    let cant=0;
+    
     function showData(valueInput){
         let html="";
-        let cant=0;
+        //let cant=0;
         const arr = JSON.parse(localStorage.getItem(`dataCart${localStorage.getItem("userId")}`));
         if(arr===null){
             console.log("ERROR");
         }else{
+
+            let subtotal = calculateCost(cant, cost);
+            subt = subtotal;
             for(let i of arr){
                 nom = i.name;
                 cost = i.unitCost;
@@ -88,33 +92,19 @@ if(localStorage.getItem("username")===null){
                 img = i.image;
                 currency = i.currency;
 
-                let subtotal = calculateCost(cant, cost);
-                subtotales.push(subtotal);
-
-                document.querySelector("input").value = cant;
                 document.getElementById("img").innerHTML = `<img id="img" src=${img} width="85" height="70">`;
                 document.getElementById("nom").innerHTML = nom;
                 document.getElementById("cost").innerHTML = `<spam>${currency}</spam> &nbsp` + cost;
                 document.getElementById("subtotal").innerHTML = `<spam>${currency}</spam>` + subtotal;
 
-                if(valueInput > 1){
-                    let subtotal = calculateCost(valueInput, cost);
-                subtotales.push(subtotal);
-
-                document.querySelector("input").value = valueInput;
-                document.getElementById("img").innerHTML = `<img id="img" src=${img} width="85" height="70">`;
-                document.getElementById("nom").innerHTML = nom;
-                document.getElementById("cost").innerHTML = `<spam>${currency}</spam> &nbsp` + cost;
-                document.getElementById("subtotal").innerHTML = `<spam>${currency}</spam>` + subtotal;
-                }else if(valueInput==0 || valueInput<0){
-                    document.querySelector("input").value = valueInput;
-                document.getElementById("img").innerHTML = `<img id="img" src=${img} width="85" height="70">`;
-                document.getElementById("nom").innerHTML = nom;
-                document.getElementById("cost").innerHTML = `<spam>${currency}</spam> &nbsp` + cost;
-                document.getElementById("subtotal").innerHTML = `<spam>${currency}</spam>` + 0;
+                if(valueInput==0 || valueInput<0){
+                    document.getElementById("img").innerHTML = `<img id="img" src=${img} width="85" height="70">`;
+                    document.getElementById("nom").innerHTML = nom;
+                    document.getElementById("cost").innerHTML = `<spam>${currency}</spam> &nbsp` + cost;
+                    document.getElementById("subtotal").innerHTML = `<spam>${currency}</spam>` + 0;
                 }
-            
             }
+            showSubtotals();
         }
     }
 
@@ -149,13 +139,11 @@ if(localStorage.getItem("username")===null){
         </div>`
     }
 
-    let subtotalGeneral =0;
+    //let subtotalGeneral =0;
+    let subtotalGeneral=0;
     function showSubtotals(){
         
-        for(let i=0; i<subtotales.length; i++){
-            subtotalGeneral += subtotales[i];
-            
-        }
+        subtotalGeneral += subt;
         document.getElementById("subtotalGeneral").innerHTML = `U$D &nbsp` + subtotalGeneral;
     }
 
