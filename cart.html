@@ -43,10 +43,11 @@
     </div>
   </nav>
   <main>
-    <div class="container">
+    <div class="container was-validated">
       <h1>Carrito de compras</h1>
       <h3>Artículos a comprar</h3>
       <div class="tableProduct">
+        <div id="compraExitosa"></div>
         <div class="col-6" id="rowD">
           <strong class="rowTitle">Nombre</strong>
           <strong class="rowTitle">Costo</strong>
@@ -70,8 +71,12 @@
         <div id="container">
 
         </div>
+        <div id="mensajeDeAlerta" class="text-danger">
+
+        </div>
 
         <h3>Tipo de envío</h3>
+        
         <div>
           <input type="radio" id="premium" name="radio" value="premium">
           <label for="premium">Premium 2 a 5 días (15%)</label>
@@ -86,14 +91,20 @@
           <input type="radio" id="standard" name="radio" value="standard">
         <label for="standard">Standard 12 a 15 días (5%)</label>
         </div>
+        <p id="mensaje" class="text-danger"></p>
       </div>
+
+
       <h3>Dirección de envío</h3>
       <div class="row g-3 align-items-center">
         <div class="col-auto">
           <label for="inputCalle" class="col-form-label" id="nameField">Calle:</label>
         </div>
         <div class="col-auto">
-          <input class="form-control" class="fieldForm" placeholder="Ej: Bulevar Gral Artigas" type="text" id="calle" class="form-control" aria-describedby="passwordHelpInline">
+          <input class="form-control" name="valueRadio" class="fieldForm" placeholder="Ej: Bulevar Gral Artigas" type="text" id="calle" class="form-control" aria-describedby="passwordHelpInline" required>
+          <div class="invalid-feedback">
+            Debe ingresar una dirección
+          </div>
         </div>
       </div>
       
@@ -102,7 +113,10 @@
           <label for="inputCalle" class="col-form-label" id="nameField">Número:</label>
         </div>
         <div class="col-auto">
-          <input class="form-control" class="fieldForm" placeholder="Ej: 2222" type="text" id="numero" class="form-control" aria-describedby="passwordHelpInline">
+          <input class="form-control" name="valueRadio" class="fieldForm" placeholder="Ej: 2222" type="text" id="numero" class="form-control" aria-describedby="passwordHelpInline" required>
+          <div class="invalid-feedback">
+            Debe ingresar una número de puerta o apartamento
+          </div>
         </div>
       </div>
       
@@ -112,7 +126,10 @@
           <label for="inputCalle" class="col-form-label" id="nameField">Esquina:</label>
         </div>
         <div class="col-auto">
-          <input class="form-control" class="fieldForm" placeholder="Ej: Ombúes" type="text" id="esquina" class="form-control" aria-describedby="passwordHelpInline">
+          <input class="form-control" name="valueRadio" class="fieldForm" placeholder="Ej: Ombúes" type="text" id="esquina" class="form-control" aria-describedby="passwordHelpInline" required>
+          <div class="invalid-feedback">
+            Debe ingresar una esquina
+          </div>
         </div>
       </div>
 
@@ -172,10 +189,11 @@
 
 <h2>Forma de pago</h2>
 
-<div id="tipoDePago">No seleccionado</div>
+<div  id="tipoDePago">No seleccionado</div>
 <label type="button" id="buttonSelect" data-bs-toggle="modal" data-bs-target="#exampleModal" style="color:blue;">
   Seleccionar
 </label>
+<p id="aviso_alerta" class="text-danger"></p>
 
 <!-- Modal -->
 <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -187,37 +205,46 @@
       </div>
       <div class="modal-body">
         <div>
-          <input type="radio" id="creditCard" name="radio" value="Trajeta de crédito">
+          <input name="valueRadio" type="radio" id="creditCard" name="radio" value="Trajeta de crédito">
           <label for="creditCard">Tarjeta de crédito</label>
         </div>
         <hr size="3px" style="background-color:black; width: 50rem">
         <div class="col-4">
           <label for="numberCard" class="form-label">Número de tarjeta</label>
-          <input type="text" class="form-control" id="numberCard" aria-describedby="emailHelp">
-          
+          <input type="text" class="form-control" id="numberCard" aria-describedby="emailHelp" required>
+          <div class="invalid-feedback">
+            Debe ingresar un número de tarjeta válido
+          </div>
           
         </div>
         <div class="col-3" >
           <label for="codigoSeg" class="form-label">Código de Seg.</label>
-          <input type="text" class="form-control" id="codigoSeg" aria-describedby="emailHelp">
-          
+          <input type="text" class="form-control" id="codigoSeg" aria-describedby="emailHelp" required>
+          <div class="invalid-feedback">
+            Debe ingresar un código de seguridad válido
+          </div>
         </div>
 
         <div class="col-4" >
           <label for="vencimiento" class="form-label">Vencimiento (MM/AA)</label>
-          <input type="date" class="form-control" id="vencimiento" aria-describedby="emailHelp">
-          
+          <input type="date" class="form-control" id="vencimiento" aria-describedby="emailHelp" required>
+          <div class="invalid-feedback">
+            Debe ingresar una fecha de vencimiento válida
+          </div>
         </div>
 
         <div id="radioBank">
-          <input type="radio" id="bankTranfer" name="radio" value="Transferencia bancaria">
+          <input name="valueRadio" type="radio" id="bankTranfer" name="radio" value="Transferencia bancaria">
           <label for="bankTranfer">Transferencia bancaria</label>
+          
         </div>
 
         <div class="col-6">
           <label for="accountNumber" class="form-label">Número de cuenta</label>
-          <input type="text" class="form-control" id="accountNumber" aria-describedby="emailHelp">
-          
+          <input type="text" class="form-control" id="accountNumber" aria-describedby="emailHelp" required>
+          <div class="invalid-feedback">
+            Debe ingresar una cuenta bancaria válida
+          </div>
         </div>
       </div>
       <div class="modal-footer">
