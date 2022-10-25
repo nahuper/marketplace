@@ -29,6 +29,10 @@ let img = "";
 let subtotal=0;
 let currency="";
 
+
+
+
+
 if(localStorage.getItem("username")===null){
     location.href="../marketplace/login.html";
 }else{
@@ -48,7 +52,7 @@ if(localStorage.getItem("username")===null){
         }
         localStorage.setItem(`dataCart${localStorage.getItem("userId")}`, JSON.stringify(prechargedObjects));
         showData();
-        showSubtotals();
+        calculateGeneralCostOfList();
 
     })
     })
@@ -57,10 +61,9 @@ if(localStorage.getItem("username")===null){
 
 
     inputCant.addEventListener("input", ()=>{
-        //console.log("prueba")
         cant = document.querySelector("input").value;
         showData(cant);
-        //showModifiedData(cant);
+        showSubtotals();
         
     })
 
@@ -93,14 +96,8 @@ if(localStorage.getItem("username")===null){
                 document.getElementById("cost").innerHTML = `<spam>${currency}</spam> &nbsp` + cost;
                 document.getElementById("subtotal").innerHTML = `<spam>${currency}</spam>` + subtotal;
 
-                if(valueInput==0 || valueInput<0){
-                    document.getElementById("img").innerHTML = `<img id="img" src=${img} width="85" height="70">`;
-                    document.getElementById("nom").innerHTML = nom;
-                    document.getElementById("cost").innerHTML = `<spam>${currency}</spam> &nbsp` + cost;
-                    document.getElementById("subtotal").innerHTML = `<spam>${currency}</spam>` + 0;
-                }
+               
             }
-            showSubtotals();
         }
     }
 
@@ -108,6 +105,7 @@ if(localStorage.getItem("username")===null){
 
     function recorrerArreglo(){
         
+        //let subt=0
         if(array===null){
             console.log("El array está vacío")
         }else{
@@ -121,8 +119,23 @@ if(localStorage.getItem("username")===null){
     }
 
     recorrerArreglo();
+    let result=0;
+    function calculateGeneralCostOfList(){
+        
+        if(subtotales!==null){
+            for(let i=0; i<subtotales.length; i++){
+                result+=subtotales[0];
+            }
+            showSubtotals();
+        }
+        
+    }
+
+    
+   
 
     function showProds(cant, img, nom, cost, subtotal, currency){
+        
         return `<div class="col-6" id="tableData">
         <hr size="5px" style="background-color:black; width: 50rem">
         <img id="img" src=${img} width="85" height="70">
@@ -131,15 +144,15 @@ if(localStorage.getItem("username")===null){
         <input type="number" id="inputId" value=${cant} style="width: 3rem; height: 3rem; margin-left: 2.4rem;">
         <strong><spam class="subTotal"><spam>${currency}</spam>${subtotal}</spam></strong>
         <hr size="5px" style="background-color:black; width: 50rem">
-          
         </div>`
+        
     }
 
-    //let subtotalGeneral =0;
+
     let subtotalGeneral=0;
     function showSubtotals(){
         
-        subtotalGeneral += subt;
+        subtotalGeneral = subtotalGeneral + subt + result;
         document.getElementById("subtotalGeneral").innerHTML = `U$D &nbsp` + subtotalGeneral;
     }
 
@@ -224,26 +237,27 @@ if(localStorage.getItem("username")===null){
         let seleccionTipoDeEnvio = false;
         let valorCantProducto = false;
         let datosTarjeta = false;
-        let datosBanco = false;
+        //let datosBanco = false;
 
         
         calle.value=="" || numero.value=="" || esquina.value=="" ? 
-        (alert("ALERTA!: Faltan los datos de envío"), valoresDireccion=false): (valoresDireccion=true);
+        (alert("ALERTA!: Faltan los datos de envío"), compraExitosa.hidden=true): (compraExitosa.innerHTML = `<div class="alert alert-success" role="alert"> Compra realizada con éxito! </div>`, compraExitosa.hidden=false);
 
         creditCard.checked===true || bankTransfer.checked===true ? 
         (aviso_alerta.innerHTML=``, seleccionTarjetaOBanco=true) : (aviso_alerta.innerHTML=`Debe seleccionar una forma de pago`, seleccionTarjetaOBanco=false);
 
         premiumRadio.checked===true || expressRadio.checked===true || standardRadio.checked===true ? 
-        (mensaje.innerHTML=``, seleccionTipoDeEnvio=true) : (mensaje.innerHTML=`Debe seleccionar una opción`, seleccionTipoDeEnvio=false);
+        (mensaje.innerHTML=``, seleccionTipoDeEnvio=true) : (mensaje.innerHTML=`Debe seleccionar una opción`, seleccionTipoDeEnvio=false, compraExitosa.hidden=true);
         
         inputCant.value > 0 ? 
         (mensajeDeAlerta.innerHTML = ``, valorCantProducto=true) : (mensajeDeAlerta.innerHTML = `Debe selecciónar al menos un producto de la lista`, valorCantProducto=false)
 
 
          if(creditCard.checked===true && bankTransfer.checked===false){
-            if(numberCard.value =="" || securityCode.value=="" || vencimiento.value=="" && valoresDireccion===false && 
+            if(numberCard.value =="" || securityCode.value=="" || vencimiento.value=="" && 
                     seleccionTarjetaOBanco===false && seleccionTipoDeEnvio===false && valorCantProducto===false){
                         alert("ALERTA!: Faltan los datos de la tarjeta");
+                        compraExitosa.hidden=true;
                         datosTarjeta=false;
             }else{
                 compraExitosa.innerHTML = `<div class="alert alert-success" role="alert">
@@ -253,9 +267,10 @@ if(localStorage.getItem("username")===null){
          }
 
          if(creditCard.checked===false && bankTransfer.checked===true){
-            if(bankNumber.value=="" || valoresDireccion===false && 
+            if(bankNumber.value=="" && 
                     seleccionTarjetaOBanco===false && seleccionTipoDeEnvio===false && valorCantProducto===false){
                         alert("ALERTA!: Faltan los datos bancarios");
+                        compraExitosa.hidden=true;
                         datosTarjeta=false;
             }else{
                 compraExitosa.innerHTML = `<div class="alert alert-success" role="alert">
@@ -263,6 +278,8 @@ if(localStorage.getItem("username")===null){
               </div>`
             }
          }
+
+
     })
     
 }
