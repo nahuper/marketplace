@@ -232,12 +232,10 @@ if(localStorage.getItem("username")===null){
         const mensaje = document.getElementById("mensaje");
         const compraExitosa = document.getElementById("compraExitosa");
 
-        let valoresDireccion = false;
+        
         let seleccionTarjetaOBanco = false;
         let seleccionTipoDeEnvio = false;
         let valorCantProducto = false;
-        let datosTarjeta = false;
-        //let datosBanco = false;
 
         
         calle.value=="" || numero.value=="" || esquina.value=="" ? 
@@ -267,7 +265,7 @@ if(localStorage.getItem("username")===null){
          }
 
          if(creditCard.checked===false && bankTransfer.checked===true){
-            if(bankNumber.value=="" && 
+            if(bankNumber.value=="" || 
                     seleccionTarjetaOBanco===false && seleccionTipoDeEnvio===false && valorCantProducto===false){
                         alert("ALERTA!: Faltan los datos bancarios");
                         compraExitosa.hidden=true;
