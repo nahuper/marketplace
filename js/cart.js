@@ -112,7 +112,7 @@ if(localStorage.getItem("username")===null){
             for(let i of array){
                 let subtotal = calculateCost(i.count, i.unitCost);
                 subtotales.push(subtotal);
-                container.innerHTML += showProds(i.count, i.image, i.name, i.unitCost, subtotal, i.currency);
+                container.innerHTML += showProds(i.count, i.image, i.name, i.unitCost, subtotal, i.currency, i.id);
             }
         }
         
@@ -134,7 +134,7 @@ if(localStorage.getItem("username")===null){
     
    
 
-    function showProds(cant, img, nom, cost, subtotal, currency){
+    function showProds(cant, img, nom, cost, subtotal, currency, id){
         
         return `<div class="col-6" id="tableData">
         <hr size="5px" style="background-color:black; width: 50rem">
@@ -143,8 +143,20 @@ if(localStorage.getItem("username")===null){
         <spam class="rowData"><spam>${currency} &nbsp</spam>${cost}</spam>
         <input type="number" id="inputId" value=${cant} style="width: 3rem; height: 3rem; margin-left: 2.4rem;">
         <strong><spam class="subTotal"><spam>${currency}</spam>${subtotal}</spam></strong>
+        <input type="button" value="delete" onclick="removeElement(${id})">
         <hr size="5px" style="background-color:black; width: 50rem">
         </div>`
+        
+    }
+
+    function removeElement(id){
+        console.log(id);
+        for(let i of array){
+            if(i.id == id){
+                console.log("TRUE");
+                break;
+            }
+        }
         
     }
 
@@ -236,48 +248,56 @@ if(localStorage.getItem("username")===null){
         let seleccionTarjetaOBanco = false;
         let seleccionTipoDeEnvio = false;
         let valorCantProducto = false;
-
+        let valorDatosDeEnvio = false;
+        let datosDeTarjeta = false;
+        let datosDeBanco = false;
         
         calle.value=="" || numero.value=="" || esquina.value=="" ? 
-        (alert("ALERTA!: Faltan los datos de envío"), compraExitosa.hidden=true): (compraExitosa.innerHTML = `<div class="alert alert-success" role="alert"> Compra realizada con éxito! </div>`, compraExitosa.hidden=false);
+        (alert("ALERTA!: Faltan los datos de envío"), valorDatosDeEnvio=false) : (valorDatosDeEnvio=true);
 
         creditCard.checked===true || bankTransfer.checked===true ? 
         (aviso_alerta.innerHTML=``, seleccionTarjetaOBanco=true) : (aviso_alerta.innerHTML=`Debe seleccionar una forma de pago`, seleccionTarjetaOBanco=false);
 
         premiumRadio.checked===true || expressRadio.checked===true || standardRadio.checked===true ? 
-        (mensaje.innerHTML=``, seleccionTipoDeEnvio=true) : (mensaje.innerHTML=`Debe seleccionar una opción`, seleccionTipoDeEnvio=false, compraExitosa.hidden=true);
+        (mensaje.innerHTML=``, seleccionTipoDeEnvio=true) : (mensaje.innerHTML=`Debe seleccionar una opción`, seleccionTipoDeEnvio=false);
         
         inputCant.value > 0 ? 
         (mensajeDeAlerta.innerHTML = ``, valorCantProducto=true) : (mensajeDeAlerta.innerHTML = `Debe selecciónar al menos un producto de la lista`, valorCantProducto=false)
 
 
-         if(creditCard.checked===true && bankTransfer.checked===false){
-            if(numberCard.value =="" || securityCode.value=="" || vencimiento.value=="" && 
-                    seleccionTarjetaOBanco===false && seleccionTipoDeEnvio===false && valorCantProducto===false){
-                        alert("ALERTA!: Faltan los datos de la tarjeta");
-                        compraExitosa.hidden=true;
-                        datosTarjeta=false;
+        if(bankTransfer.checked===true && creditCard.checked===false){
+            if(accountNmberBank.value!==""){
+                datosDeBanco=false;
             }else{
-                compraExitosa.innerHTML = `<div class="alert alert-success" role="alert">
-                Compra realizada con éxito!
-              </div>`
+                
+                datosDeBanco=true;
+                alert("ALERTA!: Debe ingresar una cuenta bancaria");
             }
-         }
+        }
 
-         if(creditCard.checked===false && bankTransfer.checked===true){
-            if(bankNumber.value=="" || 
-                    seleccionTarjetaOBanco===false && seleccionTipoDeEnvio===false && valorCantProducto===false){
-                        alert("ALERTA!: Faltan los datos bancarios");
-                        compraExitosa.hidden=true;
-                        datosTarjeta=false;
+        if(creditCard.checked===true && bankTransfer.checked===false){
+
+            if(creditCard.value != "" && securityCode.value != "" && vencimiento.value != ""){
+                datosDeTarjeta=true;
             }else{
-                compraExitosa.innerHTML = `<div class="alert alert-success" role="alert">
-                Compra realizada con éxito!
-              </div>`
+                datosDeTarjeta=false;
+                alert("ALERTA!: Faltan datos de la tarjeta");
             }
-         }
+            
+        }
 
-
+        if(creditCard.checked===true && bankTransfer.checked===false || creditCard.checked===false && bankTransfer.checked===true
+            || creditCard.checked===false && bankTransfer.checked===false){
+                if(seleccionTarjetaOBanco===false || seleccionTipoDeEnvio===false || valorCantProducto===false || valorDatosDeEnvio===false){
+                    console.log("ERROR")
+                    //compraExitosa.hidden=true;
+                }else{
+                    console.log("CORRECTO");
+                    compraExitosa.innerHTML = `<div class="alert alert-success" role="alert">
+                        Compra realizada con éxito!
+                    </div>`
+                }
+        }
     })
     
 }
