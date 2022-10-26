@@ -34,7 +34,7 @@ let currency="";
 
 
 if(localStorage.getItem("username")===null){
-    location.href="../marketplace/login.html";
+    location.href="../login.html";
 }else{
 
     document.addEventListener("DOMContentLoaded", ()=>{
@@ -112,7 +112,7 @@ if(localStorage.getItem("username")===null){
             for(let i of array){
                 let subtotal = calculateCost(i.count, i.unitCost);
                 subtotales.push(subtotal);
-                container.innerHTML += showProds(i.count, i.image, i.name, i.unitCost, subtotal, i.currency, i.id);
+                container.innerHTML += showProds(i.count, i.image, i.name, i.unitCost, subtotal, i.currency);
             }
         }
         
@@ -134,7 +134,7 @@ if(localStorage.getItem("username")===null){
     
    
 
-    function showProds(cant, img, nom, cost, subtotal, currency, id){
+    function showProds(cant, img, nom, cost, subtotal, currency){
         
         return `<div class="col-6" id="tableData">
         <hr size="5px" style="background-color:black; width: 50rem">
@@ -143,22 +143,12 @@ if(localStorage.getItem("username")===null){
         <spam class="rowData"><spam>${currency} &nbsp</spam>${cost}</spam>
         <input type="number" id="inputId" value=${cant} style="width: 3rem; height: 3rem; margin-left: 2.4rem;">
         <strong><spam class="subTotal"><spam>${currency}</spam>${subtotal}</spam></strong>
-        <input type="button" value="delete" onclick="removeElement(${id})">
         <hr size="5px" style="background-color:black; width: 50rem">
         </div>`
         
     }
 
-    function removeElement(id){
-        console.log(id);
-        for(let i of array){
-            if(i.id == id){
-                console.log("TRUE");
-                break;
-            }
-        }
-        
-    }
+   
 
 
     let subtotalGeneral=0;
