@@ -266,15 +266,18 @@ if(localStorage.getItem("username")===null){
         (alertMessage.innerHTML = ``, cantProductValue=true) : (alertMessage.innerHTML = `Debe selecciónar al menos un producto de la lista`, cantProductValue=false)
 
 
-        if(bankTransfer.checked===true && creditCard.checked===false){
-            if(accountNmberBank.value!==""){
+
+        if(creditCard.checked===false && bankTransfer.checked===true){
+
+            if(bankTransfer.value!==""){
                 bankData=true;
             }else{
-                
                 bankData=false;
-                alert("ALERTA!: Debe ingresar una cuenta bancaria");
+                alert("ALERTA!: Faltan datos bancarios");
             }
+            
         }
+    
 
         if(creditCard.checked===true && bankTransfer.checked===false){
 
@@ -289,7 +292,7 @@ if(localStorage.getItem("username")===null){
 
         if(creditCard.checked===true && bankTransfer.checked===false || creditCard.checked===false && bankTransfer.checked===true
             || creditCard.checked===false && bankTransfer.checked===false){
-                if(selectCardOrBank===false || selectTypeOfShipping===false || cantProductValue===false || dataOfShippingValue===false && cardData===true || bankData===false && cardData===false || bankData===true){
+                if(selectCardOrBank===false || selectTypeOfShipping===false || cantProductValue===false || dataOfShippingValue===false || cardData===false){
                     console.log("ERROR")
                     //compraExitosa.hidden=true;
                 }else{
