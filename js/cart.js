@@ -233,7 +233,7 @@ if(localStorage.getItem("username")===null){
         const alertMessage = document.getElementById("mensajeDeAlerta");
         const message = document.getElementById("mensaje");
         const successfullPurchase = document.getElementById("compraExitosa");
-
+        const formComplete = document.getElementById("form");
 
         let selectCardOrBank = false;
         let selectTypeOfShipping = false;
@@ -244,7 +244,7 @@ if(localStorage.getItem("username")===null){
         
         
         road.value=="" || number.value=="" || corner.value=="" ? 
-        (alert("ALERTA!: Faltan los datos de envío"), dataOfShippingValue=false) : (dataOfShippingValue=true);
+        (dataOfShippingValue=false) : (dataOfShippingValue=true);
 
         creditCard.checked===true || bankTransfer.checked===true ? 
         (notice_alert.innerHTML=``, selectCardOrBank=true) : (notice_alert.innerHTML=`Debe seleccionar una forma de pago`, selectCardOrBank=false);
@@ -275,7 +275,6 @@ if(localStorage.getItem("username")===null){
                 cardData=true;
             }else{
                 cardData=false;
-                alert("ALERTA!: Faltan datos de la tarjeta");
             }
             
         }
@@ -283,7 +282,8 @@ if(localStorage.getItem("username")===null){
         if(creditCard.checked===true && bankTransfer.checked===false || creditCard.checked===false && bankTransfer.checked===true
             || creditCard.checked===false && bankTransfer.checked===false){
                 if(selectCardOrBank===false || selectTypeOfShipping===false || cantProductValue===false || dataOfShippingValue===false || cardData===false){
-                    console.log("ERROR")
+                    console.log("ERROR");
+                    formComplete.classList.add("was-validated");
                     //compraExitosa.hidden=true;
                 }else{
                     console.log("CORRECTO");
