@@ -60,9 +60,97 @@
   </nav>
   <main>
     <div class="container">
-      <div class="alert alert-danger text-center" role="alert">
+      <!--<div class="alert alert-danger text-center" role="alert">
         <h4 class="alert-heading">Funcionalidad en desarrollo</h4>
-      </div>
+      </div><!-->
+
+
+        <form id="formCompleto" class="row mt-4">
+          <div class="col">
+            <div class="col-1"><h1 class="mb-3">Perfil</h1></div>
+            <hr class="my-4">
+            <div id="cartel"></div>
+            <div class="row g-3">
+              <div class="col-sm-6">
+
+                <div id="message">
+                  
+                </div>
+
+                <label for="firstName" class="form-label">Primer nombre*</label>
+                
+                <div id="name1">
+                  <input type="text" class="form-control" id="firstName" required>
+                </div>
+                
+                
+              </div>
+  
+              <div class="col-sm-6">
+                <label for="secondName" class="form-label">Segundo nombre</label>
+                
+                <div id="name2">
+                  <input type="text" class="form-control" id="secondName">
+                </div>
+                
+                
+              </div>
+  
+  
+              <div class="col-sm-6">
+                <label for="firstSurname" class="form-label">Primer apellido*</label>
+                <div id="surname1">
+                  <input type="text" class="form-control" id="firstSurname" required>
+                </div>
+                
+                
+              </div>
+  
+  
+              <div class="col-sm-6">
+                <label for="secondSurname" class="form-label">Segundo apellido</label>
+                <div id="surname2">
+                  <input type="text" class="form-control" id="secondSurname">
+                </div>
+                
+              </div>
+  
+  
+              <div class="col-sm-6">
+                <label for="email" class="form-label">E-mail</label>
+                <div id="email">
+                  <input type="email" class="form-control" id="email">
+                </div>
+                
+                
+              </div>
+  
+              <div class="col-sm-6">
+                <label for="p" class="form-label">Teléfono de contacto*</label>
+                <div id="phone">
+                  <input type="text" class="form-control" id="p" required>
+                </div>
+                
+                
+              </div>
+  
+              <hr class="my-4">
+  
+              <div col="col-sm-4">
+                <button class="btn btn-primary" id="saveChanges" type="submit">Guardar cambios</button>
+              </div>
+
+              <div col="col-sm-4">
+                <button type="button" id="deleteData" class="btn btn-danger">Eliminar datos</button>
+              </div>
+              
+              
+  
+  
+            </div>
+          </div>
+        </form>
+
     </div>
   </main>
   <footer class="text-muted">
