@@ -1,5 +1,5 @@
 if(localStorage.getItem("username")===null){
-    location.href="../login.html";
+    location.href="../marketplace/login.html";
 }else{
     let email = localStorage.getItem("username");
     const emailField = document.getElementById("email");
