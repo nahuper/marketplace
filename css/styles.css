@@ -316,3 +316,24 @@ button{
 .spacing{
   margin-top: 1rem;
 }
+.cont{
+  margin-top: 2rem;
+}
+
+.card{
+  border: 1px solid #fff;
+  height: 20rem;
+  width: 10rem;
+  position: relative;
+}
+
+.card-footer{
+  position: absolute;
+  bottom: 0px;
+  left: 0;
+  right: 0;
+  text-align: center;
+  background: #dfe8e9;
+  padding: 9px;
+}
+

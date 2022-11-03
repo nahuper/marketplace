@@ -37,6 +37,14 @@ if(localStorage.getItem("username")===null){
     location.href="../marketplace/login.html";
 }else{
 
+
+    /**
+     * Aquí se obtiene de la API los datos y se desestructura,
+     * para luego se recorrido y guardado en un array, posteriormente se guarda en el 
+     * localstorage para su uso, se muestran los datos y se calcula el costo de los productos
+     * agregados por el usuario.
+     */
+
     document.addEventListener("DOMContentLoaded", ()=>{
         fetch(URL_FORMATED)
     .then((result)=>{return result.json()})
@@ -57,8 +65,14 @@ if(localStorage.getItem("username")===null){
     })
     })
 
-    const inputCant = document.getElementById("valueInput");
+    
 
+    /**
+     * Aquí en base al evento input, se actualiza el subtotal,
+     * y se muestra los datos actualizados.
+     */
+
+    const inputCant = document.getElementById("valueInput");
 
     inputCant.addEventListener("input", ()=>{
         cant = document.querySelector("input").value;
@@ -71,12 +85,15 @@ if(localStorage.getItem("username")===null){
         return cost * cant;
     }
 
+    /**
+     * Aquí se muestra los datos del producto cargado por defecto
+     */
+
     let subt=0;
     let cant=0;
     
-    function showData(valueInput){
+    function showData(){
         let html="";
-        //let cant=0;
         const arr = JSON.parse(localStorage.getItem(`dataCart${localStorage.getItem("userId")}`));
         if(arr===null){
             console.log("ERROR");
@@ -102,6 +119,10 @@ if(localStorage.getItem("username")===null){
     }
 
 
+    /**
+     * Aquí se recorre el arreglo de productos agregados por el usuario
+     * y se muestra en pantalla todos los datos y su subtotal
+     */
 
     function recorrerArreglo(){
         
@@ -118,6 +139,10 @@ if(localStorage.getItem("username")===null){
         
     }
 
+
+    /**
+     * Aquí se calcula el costo de la lista de artículos agregados por el usuario
+     */
     recorrerArreglo();
     let result=0;
     function calculateGeneralCostOfList(){
@@ -133,7 +158,9 @@ if(localStorage.getItem("username")===null){
 
     
    
-
+    /**
+     * Aquí se crea el formato HTML para mostrar los artículos en pantalla
+     */
     function showProds(cant, img, nom, cost, subtotal, currency){
         
         return `<div class="col-6" id="tableData">
@@ -150,7 +177,11 @@ if(localStorage.getItem("username")===null){
 
    
 
-
+    /**
+     * Aquí se calcula el subtotal general y se muestra en pantalla, si se agrega un artículo
+     * por parte del usuario, el valor de result se va a incrementar en base a cada subtotal.
+     * Y se calcula el costo total a pagar en base a los subtotales y al tipo de envío seleccionado.
+     */
     let subtotalGeneral=0;
     function showSubtotals(){
         
@@ -158,6 +189,16 @@ if(localStorage.getItem("username")===null){
         document.getElementById("subtotalGeneral").innerHTML = `U$D &nbsp` + subtotalGeneral;
     }
 
+    function calculateTotalCost(){
+        let sumatoria = resultShippingCost + subtotalGeneral;
+        totalCost.innerHTML = `<strong>U$D</strong> &nbsp` + `<strong>${sumatoria}</strong>`;
+    }
+
+
+    /**
+     * Aquí en base al evento de radio button, se hacen los cálculos correspondientes
+     * al tipo de envío deseado.
+     */
 
     premiumRadio.addEventListener("click", ()=>{
     
@@ -184,10 +225,10 @@ if(localStorage.getItem("username")===null){
     });
 
 
-    function calculateTotalCost(){
-        let sumatoria = resultShippingCost + subtotalGeneral;
-        totalCost.innerHTML = `<strong>U$D</strong> &nbsp` + `<strong>${sumatoria}</strong>`;
-    }
+    /**
+     * Aquí se habilitan o deshabilitan los campos en base a la opción seleccionada
+     */
+    
 
     buttonSelectPaymentMethod.addEventListener("click", ()=>{
         creditCard.checked ? false : true && 
@@ -224,6 +265,11 @@ if(localStorage.getItem("username")===null){
         vencimiento.disabled=true;
     })
 
+
+    /**
+     * Aquí se evalúa que todos los campos del formulario de compra estén rellenos,
+     * si no, no se realizará el envío.
+     */
     btnBuy.addEventListener("click", ()=>{
   
         const road = document.getElementById("calle");

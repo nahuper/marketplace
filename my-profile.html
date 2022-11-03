@@ -8,6 +8,7 @@
   <link href="https://fonts.googleapis.com/css?family=Raleway:300,300i,400,400i,700,700i,900,900i" rel="stylesheet">
   <link href="css/bootstrap.min.css" rel="stylesheet">
   <link href="css/styles.css" rel="stylesheet">
+  
   <style>
     .bd-placeholder-img {
       font-size: 1.125rem;
@@ -64,11 +65,24 @@
         <h4 class="alert-heading">Funcionalidad en desarrollo</h4>
       </div><!-->
 
+        <div class="cont">
+          <div class="card">
+            <img id="img-preview">
+            <div class="card-footer">
+              <input type="file" id="img-uploader">
+              <progress id="img-upload" value="0" max="100" style="width: 100%; margin:10px 0;"></progress>
+            </div>
+            
+          </div>
+        </div>
+        <input type="button" value="Eliminar imágen" id="deleteImage">
+        
 
         <form id="formCompleto" class="row mt-4">
           <div class="col">
             <div class="col-1"><h1 class="mb-3">Perfil</h1></div>
             <hr class="my-4">
+            
             <div id="cartel"></div>
             <div class="row g-3">
               <div class="col-sm-6">
@@ -78,41 +92,27 @@
                 </div>
 
                 <label for="firstName" class="form-label">Primer nombre*</label>
-                
-                <div id="name1">
-                  <input type="text" class="form-control" id="firstName" required>
-                </div>
-                
-                
+                <input type="text" class="form-control" id="firstName" required>
               </div>
   
               <div class="col-sm-6">
                 <label for="secondName" class="form-label">Segundo nombre</label>
                 
-                <div id="name2">
-                  <input type="text" class="form-control" id="secondName">
-                </div>
-                
-                
+                <input type="text" class="form-control" id="secondName">
               </div>
   
   
               <div class="col-sm-6">
                 <label for="firstSurname" class="form-label">Primer apellido*</label>
-                <div id="surname1">
-                  <input type="text" class="form-control" id="firstSurname" required>
-                </div>
                 
-                
+                <input type="text" class="form-control" id="firstSurname" required>
               </div>
   
   
               <div class="col-sm-6">
                 <label for="secondSurname" class="form-label">Segundo apellido</label>
-                <div id="surname2">
-                  <input type="text" class="form-control" id="secondSurname">
-                </div>
                 
+                <input type="text" class="form-control" id="secondSurname">
               </div>
   
   
@@ -127,11 +127,8 @@
   
               <div class="col-sm-6">
                 <label for="p" class="form-label">Teléfono de contacto*</label>
-                <div id="phone">
-                  <input type="text" class="form-control" id="p" required>
-                </div>
                 
-                
+                <input type="text" class="form-control" id="p" required>
               </div>
   
               <hr class="my-4">
@@ -166,6 +163,7 @@
   <script src="js/bootstrap.bundle.min.js"></script>
   <script src="js/init.js"></script>
   <script src="js/my-profile.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/axios@1.1.2/dist/axios.min.js"></script>
 </body>
 
 </html>
