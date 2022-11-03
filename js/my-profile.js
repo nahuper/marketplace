@@ -34,7 +34,7 @@ if(localStorage.getItem("username")===null){
     });
     
     if(JSON.parse(localStorage.getItem('image'))===null){
-        imagePreview.src = "/img/generic-avatar.svg";
+        imagePreview.src = "/marketplace/img/generic-avatar.svg";
     }else{
         let url_on_storage = JSON.parse(localStorage.getItem('image'));
         imagePreview.src = url_on_storage;
