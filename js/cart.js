@@ -1,10 +1,8 @@
-const USER_CART_URL = "https://japceibal.github.io/emercado-api/user_cart/";
-const prodUrl = "https://japceibal.github.io/emercado-api/products/";
+
 const idP = localStorage.getItem("prodID");
-const EXT_JSON = ".json";
-const URL_PROD = prodUrl + idP + EXT_JSON;
 const ID_USR = "25801";
-const URL_FORMATED = USER_CART_URL + ID_USR + EXT_JSON;
+const URL_PROD = PRODUCT_INFO_URL + idP + EXT_TYPE;
+const URL_FORMATED = CART_INFO_URL + ID_USR + EXT_TYPE;
 const array = JSON.parse(localStorage.getItem("arrayProducts"));
 const shippingCost = document.getElementById("costoEnvio");
 const container = document.getElementById("container");
@@ -34,8 +32,48 @@ let currency="";
 
 
 if(localStorage.getItem("username")===null){
-    location.href="../marketplace/login.html";
+    location.href="/marketplace/login.html";
 }else{
+
+
+    const getUserData = (road, doorNumber, corner, cardNumb, securityCode, vencimiento, sum,
+        subtotalGeneral, resultShippingCost, accountNmberBank) => ({
+        r: road,
+        doorNumb: doorNumber,
+        esq: corner,
+        creditC: cardNumb,
+        secCode: securityCode,
+        venc: vencimiento,
+        sumatory: sum,
+        subtGeneral: subtotalGeneral,
+        resultShipCost: resultShippingCost,
+        bankAccount: accountNmberBank
+
+    });
+  
+
+    
+
+    const sendClientData = async (road, doorNumber, corner, cardNumb, securityCode, vencimiento, sum, subtotalGeneral, resultShippingCost, accountNmberBank) =>{
+        try{
+            const response = await fetch(CART_INFO_URL, {
+                method: "POST",
+                headers:{
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify(getUserData(road, doorNumber, corner, cardNumb, securityCode, vencimiento, sum, subtotalGeneral, resultShippingCost, accountNmberBank)),
+            });
+            const jsonResponse = await response.json();
+            console.log(jsonResponse);
+        }catch (error){
+            console.log(error);
+        }
+    };
+
+
+
+    
+
 
 
     /**
@@ -183,6 +221,7 @@ if(localStorage.getItem("username")===null){
      * Y se calcula el costo total a pagar en base a los subtotales y al tipo de envío seleccionado.
      */
     let subtotalGeneral=0;
+    let sumatoria = 0;
     function showSubtotals(){
         
         subtotalGeneral = subtotalGeneral + subt + result;
@@ -190,7 +229,7 @@ if(localStorage.getItem("username")===null){
     }
 
     function calculateTotalCost(){
-        let sumatoria = resultShippingCost + subtotalGeneral;
+        sumatoria = resultShippingCost + subtotalGeneral;
         totalCost.innerHTML = `<strong>U$D</strong> &nbsp` + `<strong>${sumatoria}</strong>`;
     }
 
@@ -305,7 +344,7 @@ if(localStorage.getItem("username")===null){
 
         if(creditCard.checked===false && bankTransfer.checked===true){
 
-            if(bankTransfer.value!==""){
+            if(accountNmberBank.value!==""){
                 bankData=true;
             }else{
                 bankData=false;
@@ -327,18 +366,36 @@ if(localStorage.getItem("username")===null){
 
         if(creditCard.checked===true && bankTransfer.checked===false || creditCard.checked===false && bankTransfer.checked===true
             || creditCard.checked===false && bankTransfer.checked===false){
-                if(selectCardOrBank===false || selectTypeOfShipping===false || cantProductValue===false || dataOfShippingValue===false || cardData===false){
+                if(selectCardOrBank===false || selectTypeOfShipping===false || cantProductValue===false || dataOfShippingValue===false || cardData===false && bankData===false){
                     console.log("ERROR");
                     formComplete.classList.add("was-validated");
                     //compraExitosa.hidden=true;
                 }else{
+                    sendClientData(road.value, number.value, corner.value, numberCard.value, securityCode.value, 
+                        vencimiento.value, sumatoria, subtotalGeneral, resultShippingCost, accountNmberBank.value);
                     console.log("CORRECTO");
                     successfullPurchase.innerHTML = `<div class="alert alert-success" role="alert">
                         Compra realizada con éxito!
                     </div>`
                 }
         }
+            cleanFields();
+        
     })
+
+    async function cleanFields(){
+        const road = document.getElementById("calle");
+        const number = document.getElementById("numero");
+        const corner = document.getElementById("esquina");
+        road.value="";
+                number.value="";
+                corner.value="";
+                numberCard.value="";
+                securityCode.value="";
+                vencimiento.value="";
+                accountNmberBank.value="";
+        
+    }
     
 }
 

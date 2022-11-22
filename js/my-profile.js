@@ -1,7 +1,7 @@
 
 
 if(localStorage.getItem("username")===null){
-    location.href="../marketplace/login.html";
+    location.href="/marketplace/login.html";
 }else{
 
     const imagePreview = document.getElementById("img-preview");
@@ -30,11 +30,11 @@ if(localStorage.getItem("username")===null){
 
     deleteImage.addEventListener("click", ()=>{
         localStorage.removeItem("image");
-        location.href="../marketplace/my-profile.html";
+        location.href="my-profile.html";
     });
     
     if(JSON.parse(localStorage.getItem('image'))===null){
-        imagePreview.src = "/marketplace/img/generic-avatar.svg";
+        imagePreview.src = "/img/generic-avatar.svg";
     }else{
         let url_on_storage = JSON.parse(localStorage.getItem('image'));
         imagePreview.src = url_on_storage;
