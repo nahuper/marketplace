@@ -53,10 +53,6 @@ if(localStorage.getItem("username")===null){
             btnAddToCart.addEventListener("click", ()=>{
                 formatObject(data);
             })
-            
-            
-
-            //console.log(objProducts);
         })
         .catch(error=>{
             console.log(error)
