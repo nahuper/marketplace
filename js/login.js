@@ -2,7 +2,7 @@
 const btn = document.getElementById("btnLogin");
 
 if(localStorage.getItem("username")!==null){
-    location.href="../index.html";
+    location.href="../marketplace/index.html";
 }
 
 btn.addEventListener('click', function(){
