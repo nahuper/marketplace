@@ -1,7 +1,7 @@
 
 
 if(localStorage.getItem("username")===null){
-    location.href="../marketplace/login.html";
+    location.href="../login.html";
 }else{
 
     const imagePreview = document.getElementById("img-preview");
@@ -30,7 +30,7 @@ if(localStorage.getItem("username")===null){
 
     deleteImage.addEventListener("click", ()=>{
         localStorage.removeItem("image");
-        location.href="../my-profile.html";
+        location.href="../marketplace/my-profile.html";
     });
     
     if(JSON.parse(localStorage.getItem('image'))===null){

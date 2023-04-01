@@ -1,6 +1,10 @@
 
 const btn = document.getElementById("btnLogin");
 
+if(localStorage.getItem("username")!==null){
+    location.href="../index.html";
+}
+
 btn.addEventListener('click', function(){
 
     
@@ -29,4 +33,3 @@ btn.addEventListener('click', function(){
         document.getElementById("respuesta").innerHTML =  '<div class="h4 pb-2 mb-4 text-danger border-bottom border-danger">No se encontró el usuario en la base de datos o el formato de los datos no es válido</div>';
     }
 });
-
