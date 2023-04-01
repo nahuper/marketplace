@@ -1,7 +1,7 @@
 
 
 if(localStorage.getItem("username")===null){
-    location.href="../login.html";
+    location.href="../marketplace/login.html";
 }else{
 
     const imagePreview = document.getElementById("img-preview");
