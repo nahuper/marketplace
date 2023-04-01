@@ -1,6 +1,10 @@
+
+const URL_PRODUCTO = "https://japceibal.github.io/emercado-api/products/";
+const PRODUCTS_COMMENTS = "https://japceibal.github.io/emercado-api/products_comments/";
+const EXTENSION_FORMAT = ".json";
 const idProd = localStorage.getItem("prodID");
-const urlFormateado = PRODUCT_INFO_URL + idProd + EXT_TYPE;
-const urlComments = PRODUCT_INFO_COMMENTS_URL + idProd + EXT_TYPE;
+const urlFormateado = URL_PRODUCTO + idProd + EXTENSION_FORMAT;
+const urlComments = PRODUCTS_COMMENTS + idProd + EXTENSION_FORMAT;
 const comments = document.getElementsByClassName("comments-container");
 const stars = document.getElementById("stars");
 const btnPublish = document.getElementById("btnPublish");
@@ -11,7 +15,7 @@ let cargaComentarios="";
 
 
 if(localStorage.getItem("username")===null){
-    location.href="/marketplace/login.html";
+    location.href="../login.html";
 }else{
 
 
@@ -53,6 +57,10 @@ if(localStorage.getItem("username")===null){
             btnAddToCart.addEventListener("click", ()=>{
                 formatObject(data);
             })
+            
+            
+
+            //console.log(objProducts);
         })
         .catch(error=>{
             console.log(error)

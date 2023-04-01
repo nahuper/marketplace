@@ -1,4 +1,6 @@
 let list = [];
+const PRODUCTS = "https://japceibal.github.io/emercado-api/cats_products/";
+const EXTENSION = ".json";
 const btnFiltrar = document.getElementById("rangeFilterCount");
 const banner = document.getElementById("products-list");
 const btnLimpiar = document.getElementById("clearRangeFilter");
@@ -9,11 +11,11 @@ const desc = document.getElementById("sortDesc");
 const descByCount = document.getElementById("sortByCount");
 const catId = localStorage.getItem("catID");
 const cuadroBusqueda = document.getElementById("busqueda");
-const PRODUCTS_COLLECTION = PRODUCTS_URL + catId + EXT_TYPE;
-console.log(PRODUCTS_COLLECTION);
+const PRODUCTS_COLLECTION = PRODUCTS + catId + EXTENSION;
+
 
 if(localStorage.getItem("username")===null){
-    location.href="/marketplace/login.html";
+    location.href="../login.html";
 }else{
 
     /**Aquí este procedimiento recibe un id de producto y lo guarda en el localstorage y luego redirige a la página product-info */

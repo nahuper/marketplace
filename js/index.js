@@ -2,7 +2,7 @@ document.addEventListener("DOMContentLoaded", function(){
 
 
     if(localStorage.getItem("username")===null){
-        location.href="/marketplace/login.html";
+        location.href="../login.html";
     }
     document.getElementById("autos").addEventListener("click", function() {
         localStorage.setItem("catID", 101);

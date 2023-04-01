@@ -1,11 +1,13 @@
 
 
 if(localStorage.getItem("username")===null){
-    location.href="/marketplace/login.html";
+    location.href="../login.html";
 }else{
 
     const imagePreview = document.getElementById("img-preview");
     const imageUploader = document.getElementById("img-uploader");
+    const CLOUDINARY_URL = "https://api.cloudinary.com/v1_1/drnsxiqf1/image/upload"
+    const CLOUDINARY_UPLOAD_PRESET = "dgfwlsrq";
     let email = localStorage.getItem("username");
     const emailField = document.getElementById("email");
     const firstName = document.getElementById("firstName");
@@ -28,7 +30,7 @@ if(localStorage.getItem("username")===null){
 
     deleteImage.addEventListener("click", ()=>{
         localStorage.removeItem("image");
-        location.href="my-profile.html";
+        location.href="../my-profile.html";
     });
     
     if(JSON.parse(localStorage.getItem('image'))===null){
@@ -39,7 +41,7 @@ if(localStorage.getItem("username")===null){
     }
     
 
-    /*imageUploader.addEventListener("change", async (e)=>{
+    imageUploader.addEventListener("change", async (e)=>{
         //console.log(e);
         const file = e.target.files[0];
         const formData = new FormData();
@@ -61,7 +63,7 @@ if(localStorage.getItem("username")===null){
         imagePreview.src = url_on_storage;
 
         
-    })*/
+    })
 
     /**
      * Aquí se evalúa que el objeto en el localstorage no sea NULL, y si es así,
