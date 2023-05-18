@@ -6,8 +6,6 @@ if(localStorage.getItem("username")===null){
 
     const imagePreview = document.getElementById("img-preview");
     const imageUploader = document.getElementById("img-uploader");
-    const CLOUDINARY_URL = "https://api.cloudinary.com/v1_1/drnsxiqf1/image/upload"
-    const CLOUDINARY_UPLOAD_PRESET = "dgfwlsrq";
     let email = localStorage.getItem("username");
     const emailField = document.getElementById("email");
     const firstName = document.getElementById("firstName");
