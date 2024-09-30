@@ -258,7 +258,7 @@ if(localStorage.getItem("username")===null){
         bankTransfer.checked ? true : false
         
         let bankTransferValue = bankTransfer.value;
-        document.getElementById("tipoDePago").innerHTML = `${bankTransferValue}`;
+        document.getElementById("tipoDePago").textContent = bankTransferValue;
         accountNmberBank.disabled = false;
         numberCard.disabled=true;
         securityCode.disabled=true;
