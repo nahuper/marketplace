@@ -11,7 +11,7 @@ btn.addEventListener('click', function(){
     const username = document.getElementById("fieldEmail").value;
     const password = document.getElementById("fieldContrasenia").value;
     const test = JSON.parse(localStorage.getItem("users"));
-    let regEmail = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,4})+$/;
+    let regEmail = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
     let regPassword = /^(((?=.*[a-z])(?=.*[A-Z]))|((?=.*[a-z])(?=.*[0-9]))|((?=.*[A-Z])(?=.*[0-9])))(?=.{8,})/;
     
     if(test!==null){
