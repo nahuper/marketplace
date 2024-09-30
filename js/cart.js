@@ -246,7 +246,7 @@ if(localStorage.getItem("username")===null){
         creditCard.checked ? true : false
 
         let creditCardValue = creditCard.value;
-        document.getElementById("tipoDePago").innerHTML=`${creditCardValue}`;
+        document.getElementById("tipoDePago").textContent = creditCardValue;
         accountNmberBank.disabled = true;
         numberCard.disabled=false;
         securityCode.disabled=false;
