@@ -21,9 +21,9 @@ if(localStorage.getItem("username")===null){
         let comissionToShow = Math.round((comissionPercentage * 100)) + PERCENTAGE_SYMBOL;
         let totalCostToShow = MONEY_SYMBOL + ((Math.round(productCost * comissionPercentage * 100) / 100) + parseInt(productCost));
     
-        unitProductCostHTML.innerHTML = unitCostToShow;
-        comissionCostHTML.innerHTML = comissionToShow;
-        totalCostHTML.innerHTML = totalCostToShow;
+        unitProductCostHTML.textContent = unitCostToShow;
+        comissionCostHTML.textContent = comissionToShow;
+        totalCostHTML.textContent = totalCostToShow;
     }
     
     //Función que se ejecuta una vez que se haya lanzado el evento de
