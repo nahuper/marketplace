@@ -32,7 +32,7 @@ btnRegistro.addEventListener("click", (e) => {
   e.preventDefault();
   let cartel = document.getElementById("cartel");
   let email = document.getElementById("email").value;
-  let emailExpr = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,4})+$/;
+  let emailExpr = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
   let pass = document.getElementById("password1").value;
   let pass2 = document.getElementById("password2").value;
   let formCompleto = document.getElementById("formCompleto");
